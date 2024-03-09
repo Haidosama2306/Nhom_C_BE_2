@@ -16,7 +16,7 @@ body {
     height: 100px;
     top: calc(50% - 50px);
     left: calc(50% - 150px);
-    border: 1px solid red;
+    border: 5px solid blue;
     padding: 20px;
     text-align: center;
   }
