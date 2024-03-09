@@ -16,7 +16,7 @@ body {
     height: 100px;
     top: calc(50% - 50px);
     left: calc(50% - 150px);
-    border: 1px solid red;
+    border: 1px solid blue;
     padding: 20px;
     text-align: center;
   }
@@ -28,12 +28,6 @@ body {
   }
 
   .border-2{
-    margin: 10px 20px;
-    border: 2px solid black;
-    padding: 20px;
-    text-align: center;
-  }
-  .border-3{
     margin: 10px 20px;
     border: 2px solid black;
     padding: 20px;
