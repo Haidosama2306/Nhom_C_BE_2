@@ -24,7 +24,7 @@
                             </li>
                             <li class="nav-item dropdown dmenu">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                                   Tin Theo Khu Vực
+                                    Tin Theo Khu Vực
                                 </a>
                                 <div class="dropdown-menu sm-menu">
                                     <a class="dropdown-item" href="#">Hồ Chí Minh</a>
@@ -34,16 +34,52 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-4 search-form">
-                        <form class="navbar-form" role="search">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Nhập từ khóa ..." name="keyword">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-default" type="submit"><i
-                                            class="glyphicon glyphicon-search"></i></button>
+                    <div class="col-4 ">
+                        <form class="search-form">
+                            <input type="text" class="input-form" placeholder="Nhập từ khóa ..." name="keyword">
+                            <button class="btn-search" type="submit">Tìm kiếm</button>
+
+                        </form>
+                        <button type="button" class="btn-login" data-toggle="modal" data-target="#fullHeightModalRight">
+                            Login
+                        </button>
+                        <div class="modal fade right" id="fullHeightModalRight" tabindex="-1" role="dialog"
+                            aria-labelledby="myModalLabel" aria-hidden="true">
+
+                            <!-- Add class .modal-full-height and then add class .modal-right (or other classes from list above) to set a position to the modal -->
+                            <div class="modal-dialog modal-full-height modal-right" role="document">
+
+
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h2 class="text-center"> Login Form</h2>
+                                        <div class="form-group mb-3">
+                                            <input type="text" placeholder="Email" id="email" class="form-control"
+                                                name="email" required autofocus>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <input type="password" placeholder="Password" id="password"
+                                                class="form-control" name="password" required>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="remember"> Remember Me
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="d-grid mx-auto">
+                                            <button type="submit" class="btn btn-dark btn-block">Signin</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
