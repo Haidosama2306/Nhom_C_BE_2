@@ -40,6 +40,7 @@
                                     class="form-control"
                                     placeholder=""
                                     autocomplete="off"
+                                    disabled
                                     >
                                 </div>
                             </div>
@@ -53,6 +54,7 @@
                                     class="form-control"
                                     placeholder=""
                                     autocomplete="off"
+                                    disabled
                                     >
                                 </div>
                             </div>

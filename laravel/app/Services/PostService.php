@@ -80,7 +80,18 @@ class PostService implements PostServiceInterface
             return false;
         }
     }
-
+    public function deletePost($id){
+        DB::beginTransaction();
+        try{
+            $post=$this->postRepository->forceDelete($id);
+            DB::commit();
+            return true;
+        }catch(\Exception $ex){
+            DB::rollBack();
+            echo $ex->getMessage();die();
+            return false;
+        }
+    }
     public function deleteAll($post=[]){
         DB::beginTransaction();
         try{
