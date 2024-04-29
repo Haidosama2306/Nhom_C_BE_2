@@ -10,5 +10,5 @@ interface UserCatalogueServiceInterface
 {
     public function paginate($request);
     public function createUserCatalogue($request);
-   
+    public function updateUserCatalogue($id, $request);
 }
