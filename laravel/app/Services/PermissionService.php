@@ -5,9 +5,6 @@ namespace App\Services;
 use App\Services\Interfaces\PermissionServiceInterface;
 use App\Repositories\Interfaces\PermissionRepositoryInterface as PermissionRepository;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -42,7 +39,6 @@ class PermissionService implements PermissionServiceInterface
         DB::beginTransaction();
         try{
             $payload = $request->except('_token','send');
-            $payload['user_id']=Auth::id();
             $permission=$this->permissionRepository->create($payload);
             DB::commit();
             return true;
