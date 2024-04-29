@@ -69,6 +69,23 @@ class UserCatalogueController extends Controller
         }
            return redirect()->route('user.catalogue.index')->with('error','Cập nhật nhóm thành viên thất bại. Hãy thử lại');
     }
+    public function destroy($id){
+        $template='Backend.user.catalogue.destroy';
+
+        $config=$this->configCUD();
+
+        $config['seo']=config('apps.userCatalogue.delete');
+
+        $userCatalogue=$this->userCatalogueRepository->findById($id);
+
+        return view('Backend.dashboard.layout', compact('template','config','userCatalogue'));
+    }
+    public function delete($id){
+        if($this->userCatalogueService->deleteUserCatalogue($id)){
+            return redirect()->route('user.catalogue.index')->with('success','Xóa nhóm thành viên thành công');
+        }
+           return redirect()->route('user.catalogue.index')->with('error','Xóa nhóm thành viên thất bại. Hãy thử lại');
+    }
     private function configIndex(){
         return[
             'js'=>[
