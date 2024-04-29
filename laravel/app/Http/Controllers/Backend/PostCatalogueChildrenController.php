@@ -8,7 +8,7 @@ use App\Services\Interfaces\PostCatalogueChildrenServiceInterface as PostCatalog
 use App\Http\Requests\StorePostCatalogueChildrenRequest;
 use App\Repositories\Interfaces\PostCatalogueChildrenRepositoryInterface as PostCatalogueChildrenRepository;
 use App\Repositories\Interfaces\PostCatalogueParentRepositoryInterface as PostCatalogueParentRepository;
-
+use App\Http\Requests\UpdatePostCatalogueChildrenRequest;
 
 class PostCatalogueChildrenController extends Controller
 {
@@ -61,6 +61,27 @@ class PostCatalogueChildrenController extends Controller
         }
            return redirect()->route('post.catalogue.children.index')->with('error','Thêm mới nhóm bài viết con thất bại. Hãy thử lại');
         
+    }
+    public function edit($id){
+        $template='Backend.post.catalogueChildren.store';
+
+        $config=$this->configCUD();
+
+        $config['seo']=config('apps.postCatalogueChildren.edit');
+
+        $config['method']='edit';
+
+        $postCatalogueChildren = $this->postCatalogueChildrenRepository->findById($id);
+
+        $postCataloguesParent=$this->postCatalogueParentRepository->all();
+        
+        return view('Backend.dashboard.layout', compact('template','config','postCatalogueChildren','postCataloguesParent'));
+    }
+    public function update($id, UpdatePostCatalogueChildrenRequest $request){
+        if($this->postCatalogueChildrenService->updatePostCatalogueChildren($id, $request)){
+            return redirect()->route('post.catalogue.children.index')->with('success','Cập nhật nhóm bài viết con thành công');
+        }
+           return redirect()->route('post.catalogue.children.index')->with('error','Cập nhật nhóm bài con viết thất bại. Hãy thử lại');
     }
    
     private function configIndex(){

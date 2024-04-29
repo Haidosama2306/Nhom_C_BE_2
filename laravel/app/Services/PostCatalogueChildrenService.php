@@ -55,7 +55,19 @@ class PostCatalogueChildrenService implements PostCatalogueChildrenServiceInterf
             return false;
         }
     }
-    
+    public function updatePostCatalogueChildren($id, $request){
+        DB::beginTransaction();
+        try{
+            $payload = $request->only($this->payload());
+            $flag=$this->postCatalogueChildrenRepository->update($id,$payload);
+            DB::commit();
+            return true;
+        }catch(\Exception $ex){
+            DB::rollBack();
+            echo $ex->getMessage();//die();
+            return false;
+        }
+    }
     private function paginateSelect()
     {
         return [
