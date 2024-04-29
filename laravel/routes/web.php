@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\PermissionController;
+use App\Http\Controllers\Backend\PostCatalogueParentController;
 
 
 
@@ -67,4 +68,16 @@ Route::group(['prefix'=>'permission'], function(){
 Route::group(['prefix'=>'user/profile'], function(){
     Route::get('edit',[DashboardController::class, 'edit'])->name('user.profile.edit')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
     Route::post('update',[DashboardController::class, 'update'])->name('user.profile.update')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
+});
+Route::group(['prefix'=>'post/catalogue/parent'], function(){
+    Route::get('index',[PostCatalogueParentController::class, 'index'])->name('post.catalogue.parent.index')->middleware(AuthenticateMiddleware::class);
+    
+    Route::get('store',[PostCatalogueParentController::class, 'store'])->name('post.catalogue.parent.store')->middleware(AuthenticateMiddleware::class);
+    Route::post('create',[PostCatalogueParentController::class, 'create'])->name('post.catalogue.parent.create')->middleware(AuthenticateMiddleware::class);
+    
+    Route::get('{id}/edit',[PostCatalogueParentController::class, 'edit'])->name('post.catalogue.parent.edit')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::post('{id}/update',[PostCatalogueParentController::class, 'update'])->name('post.catalogue.parent.update')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
+
+    Route::get('{id}/destroy',[PostCatalogueParentController::class, 'destroy'])->name('post.catalogue.parent.destroy')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::post('{id}/delete',[PostCatalogueParentController::class, 'delete'])->name('post.catalogue.parent.delete')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
 });

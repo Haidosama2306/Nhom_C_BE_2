@@ -22,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
 
         'App\Services\Interfaces\PermissionServiceInterface' => 'App\Services\PermissionService',
         'App\Repositories\Interfaces\PermissionRepositoryInterface' => 'App\Repositories\PermissionRepository',
+
+        'App\Services\Interfaces\PostCatalogueParentServiceInterface' => 'App\Services\PostCatalogueParentService',
+        'App\Repositories\Interfaces\PostCatalogueParentRepositoryInterface' => 'App\Repositories\PostCatalogueParentRepository',
     ];
     /**
      * Register any application services.
