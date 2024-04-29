@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\Interfaces\UserCatalogueServiceInterface as UserCatalogueService;
 use App\Http\Requests\StoreUserCatalogueRequest;
 use App\Http\Requests\UpdateUserCatalogueRequest;
+use App\Http\Requests\DeleteUserCatalogueRequest;
 use App\Repositories\Interfaces\UserCatalogueRepositoryInterface as UserCatalogueRepository;
 use App\Repositories\Interfaces\PermissionRepositoryInterface as PermissionRepository;
 
@@ -27,6 +28,8 @@ class UserCatalogueController extends Controller
         $template='Backend.user.catalogue.index';
 
         $config['seo']=config('apps.userCatalogue.index');
+
+        $config['controllerName']="Catalogue";
 
         $userCatalogues = $this->userCatalogueService->paginate($request);
 
@@ -87,11 +90,18 @@ class UserCatalogueController extends Controller
 
         $userCatalogue=$this->userCatalogueRepository->findById($id);
 
+        if ($id == 1) {
+            return redirect()->route('user.catalogue.index')->with('error', 'Đây là nhóm quản trị viên không thể xóa.');
+        }
+
         $this->authorize('modules', 'user.catalogue.destroy');
 
         return view('Backend.dashboard.layout', compact('template','config','userCatalogue'));
     }
-    public function delete($id){
+    public function delete(DeleteUserCatalogueRequest $request, $id){
+        if ($request->hasUsers()) {
+            return redirect()->route('user.catalogue.index')->with('error', 'Không thể xóa nhóm thành viên vì còn thành viên trong nhóm.');
+        }
         if($this->userCatalogueService->deleteUserCatalogue($id)){
             return redirect()->route('user.catalogue.index')->with('success','Xóa nhóm thành viên thành công');
         }

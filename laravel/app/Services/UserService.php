@@ -97,7 +97,7 @@ class UserService implements UserServiceInterface
     public function deleteUser($id){
         DB::beginTransaction();
         try{
-            $user=$this->userRepository->delete($id);
+            $user=$this->userRepository->forceDelete($id);
             DB::commit();
             return true;
         }catch(\Exception $ex){

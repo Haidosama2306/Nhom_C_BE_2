@@ -74,7 +74,7 @@ class UserCatalogueService implements UserCatalogueServiceInterface
     public function deleteUserCatalogue($id){
         DB::beginTransaction();
         try{
-            $userCatalogue=$this->userCatalogueRepository->delete($id);
+            $userCatalogue=$this->userCatalogueRepository->forceDelete($id);
 
             DB::commit();
             return true;

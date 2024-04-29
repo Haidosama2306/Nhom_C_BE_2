@@ -48,19 +48,28 @@
         $('#checkAll').prop('checked', allChecked);
     }
 
-    HT.deleteAll=()=>{
-        if($('.deleteAll').length){
-            $(document).on('click','.deleteAll', function(e){
+    HT.deleteAll = () => {
+        if ($('.deleteAll').length) {
+            $(document).on('click', '.deleteAll', function(e) {
                 e.preventDefault();
-                let _this=$(this);
-                let id=[];
-                $('.checkBoxItem').each(function(){
-                    let checkBox=$(this)
-                    if(checkBox.prop('checked')){
+                let _this = $(this);
+                let id = [];
+                let hasAdminUser = false;
+                $('.checkBoxItem').each(function() {
+                    let checkBox = $(this)
+                    if (checkBox.prop('checked')) {
                         id.push(checkBox.val())
+                        let userCatalogueId = checkBox.data('catalogue-id');
+                        if (userCatalogueId == 1) {
+                            hasAdminUser = true;
+                        }
                     }
                 })
-                let option={
+                if (hasAdminUser) {
+                    alert('Bạn đã chọn nhầm thành viên thuộc nhóm quản trị viên. Hãy chọn lại.');
+                    return;
+                }
+                let option = {
                     'model': _this.attr('data-model'),
                     'id': id,
                     '_token': _token
@@ -70,23 +79,23 @@
                     type: 'POST',
                     data: option,
                     dataType: 'json',
-                    success: function(res){
+                    success: function(res) {
                         console.log(res);
-                        if(res.flag==true){
-                            for(let i =0;i<id.length;i++){
-                                $('.rowdel-'+id[i]).remove();
+                        if (res.flag == true) {
+                            for (let i = 0; i < id.length; i++) {
+                                $('.rowdel-' + id[i]).remove();
                             }
                         }
                     },
-                    error: function(jqXHR, textStatus, errorThrown){
-                        console.log('Lỗi: '+jqXHR);
-                        console.log('Lỗi request: '+ textStatus);
-                        console.log('Lỗi nội dung: '+ errorThrown);
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log('Lỗi: ' + jqXHR);
+                        console.log('Lỗi request: ' + textStatus);
+                        console.log('Lỗi nội dung: ' + errorThrown);
                     }
                 });
             })
         }
-    }
+    }    
 
     $document.ready(function(){
         HT.select2();

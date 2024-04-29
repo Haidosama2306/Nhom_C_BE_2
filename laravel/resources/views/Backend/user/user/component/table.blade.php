@@ -18,7 +18,7 @@
         @foreach($users as $user)
         <tr class="rowdel-{{ $user->id }}">
             <td>
-                <input type="checkbox" value="{{ $user->id }}" name="" class="input-checkbox checkBoxItem">
+                <input type="checkbox" value="{{ $user->id }}" data-catalogue-id="{{ $user->user_catalogue_id }}" name="" class="input-checkbox checkBoxItem">
             </td>
             <td>
                 <span class="imageUser img-cover"><img
