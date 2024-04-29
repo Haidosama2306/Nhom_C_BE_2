@@ -25,6 +25,7 @@
                     <ul class="nav nav-second-level">
                         <li><a href="{{ route('user.catalogue.index') }}">QL nhóm thành viên</a></li>
                         <li><a href="{{ route('user.index') }}">QL thành viên</a></li>
+                        <li><a href="{{ route('permission.index') }}">QL quyền</a></li>
                     </ul>
                 </li>
                 

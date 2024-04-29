@@ -8,11 +8,11 @@
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>{{ $config['seo']['table'] }} </h5>
-                @include('Backend.dashboard.component.toolbox', ['content'=>'Bạn có chắc chắn muốn xóa những người dùng này?'])
+                @include('Backend.dashboard.component.toolbox', ['content'=>'Bạn có chắc chắn muốn xóa những quyền này?'])
             </div>
             <div class="ibox-content">
-                @include('Backend.user.user.component.filter')
-                @include('Backend.user.user.component.table')
+                @include('Backend.permission.component.filter')
+                @include('Backend.permission.component.table')
             </div>
         </div>
     </div>

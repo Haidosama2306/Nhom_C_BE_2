@@ -9,6 +9,7 @@ use App\Http\Controllers\Ajax\DashboardController as AjaxDashboardController;
 use App\Http\Controllers\Backend\UserCatalogueController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Ajax\LocationController;
+use App\Http\Controllers\Backend\PermissionController;
 
 
 
@@ -52,3 +53,12 @@ Route::group(['prefix'=>'user'], function(){
     Route::post('{id}/delete',[UserController::class, 'delete'])->name('user.delete')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
 });
 Route::get('ajax/location/getLocation',[LocationController::class, 'getLocation'])->name('ajax.location.getLocation')->middleware(AuthenticateMiddleware::class);
+Route::group(['prefix'=>'permission'], function(){
+    Route::get('index',[PermissionController::class, 'index'])->name('permission.index')->middleware(AuthenticateMiddleware::class);
+    Route::get('store',[PermissionController::class, 'store'])->name('permission.store')->middleware(AuthenticateMiddleware::class);;
+    Route::post('create',[PermissionController::class, 'create'])->name('permission.create')->middleware(AuthenticateMiddleware::class);;
+    Route::get('{id}/edit',[PermissionController::class, 'edit'])->name('permission.edit')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);;
+    Route::post('{id}/update',[PermissionController::class, 'update'])->name('permission.update')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);;
+    Route::get('{id}/destroy',[PermissionController::class, 'destroy'])->name('permission.destroy')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);;
+    Route::post('{id}/delete',[PermissionController::class, 'delete'])->name('permission.delete')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);;
+});

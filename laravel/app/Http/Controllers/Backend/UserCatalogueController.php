@@ -93,7 +93,8 @@ class UserCatalogueController extends Controller
             ],
             'css'=>[
                
-            ]
+            ],
+            'model'=>'UserCatalogue'
         ];
     }
 
