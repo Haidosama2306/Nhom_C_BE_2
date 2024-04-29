@@ -38,7 +38,7 @@ class UserInfo extends Model
 
 
     public function users() {
-        return $this->belongsTo(User::class);
+        return $this->hasOne(User::class);
     }
     
     public function user_catalogues() {
