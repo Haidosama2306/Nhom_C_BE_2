@@ -9,7 +9,7 @@ use App\Http\Requests\StorePostRequest;
 use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
 use App\Repositories\Interfaces\PostCatalogueParentRepositoryInterface as PostCatalogueParentRepository;
 use App\Repositories\Interfaces\PostCatalogueChildrenRepositoryInterface as PostCatalogueChildrenRepository;
-
+use App\Http\Requests\UpdatePostRequest;
 
 class PostController extends Controller
 {
@@ -64,6 +64,31 @@ class PostController extends Controller
         }
            return redirect()->route('post.index')->with('error','Thêm mới bài viết thất bại. Hãy thử lại');
         
+    }
+    public function edit($id){
+        $template='Backend.post.post.store';
+
+        $config=$this->configCUD();
+
+        $config['seo']=config('apps.post.edit');
+
+        $config['method']='edit';
+
+        $post=$this->postRepository->findById($id);
+        
+        $postCataloguesParent=$this->postCatalogueParentRepository->all();
+
+        $album = json_decode($post->album);
+
+        $this->authorize('modules', 'post.edit');
+
+        return view('Backend.dashboard.layout', compact('template','config','post','postCataloguesParent','album'));
+    }
+    public function update($id, UpdatePostRequest $request){
+        if($this->postService->updatePost($id, $request)){
+            return redirect()->route('post.index')->with('success','Cập nhật bài viết thành công');
+        }
+           return redirect()->route('post.index')->with('error','Cập nhật bài viết thất bại. Hãy thử lại');
     }
     private function configIndex(){
         return[

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePostRequest extends FormRequest
+class UpdatePostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class StorePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|string|unique:posts',
+            'name'=>'required|string|unique:posts,name, '.$this->id.'',
             'post_catalogue_parent_id'=>'required|integer|gt:0',
             'post_catalogue_children_id'=>'required|integer|gt:0',
         ];

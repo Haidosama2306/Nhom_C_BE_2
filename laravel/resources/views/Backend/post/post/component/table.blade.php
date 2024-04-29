@@ -20,7 +20,7 @@
             </td>
             <td>
                 <span class="image img-cover"><img
-                        src="{{ $post->image }}"
+                        src="{{ $post->image ?? 'Backend/img/not-found.png' }}"
                         alt=""></span>
             </td>
             <td>
