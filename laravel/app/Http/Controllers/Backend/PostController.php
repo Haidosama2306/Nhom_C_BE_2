@@ -96,7 +96,7 @@ class PostController extends Controller
 
         $postInfo=$this->postRepository->findByCondition($condition);
 
-        if($user_logged->id != $postInfo->user_id){
+        if($user_logged->id != $postInfo->user_id && $user_logged->user_catalogue_id != 1){
             return redirect()->route('post.index')->with('error', 'Bạn không phải là tác giả của bài viết này nên không thể cập nhật nó.');
         }
 
