@@ -13,6 +13,7 @@ use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use App\Repositories\Interfaces\UserCatalogueRepositoryInterface as UserCatalogueRepository;
 use App\Repositories\Interfaces\UserInfoRepositoryInterface as UserInfoRepository;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
 
 
 class UserController extends Controller
@@ -22,13 +23,15 @@ class UserController extends Controller
     protected $userRepository;
     protected $userCatalogueRepository;
     protected $userInfoRepository;
+    protected $postRepository;
 
-    public function __construct(UserService $userService, ProvinceRepository $provinceRepository, UserRepository $userRepository, UserCatalogueRepository $userCatalogueRepository, UserInfoRepository $userInfoRepository){
+    public function __construct(UserService $userService, ProvinceRepository $provinceRepository, UserRepository $userRepository, UserCatalogueRepository $userCatalogueRepository, UserInfoRepository $userInfoRepository, PostRepository $postRepository){
         $this->userService=$userService;
         $this->provinceRepository=$provinceRepository;
         $this->userRepository=$userRepository;
         $this->userCatalogueRepository=$userCatalogueRepository;
         $this->userInfoRepository=$userInfoRepository;
+        $this->postRepository=$postRepository;
     }
     public function index(Request $request){
         $config = $this->configIndex();
@@ -150,6 +153,12 @@ class UserController extends Controller
 
         if ($userInfo->user_catalogue_id == 1) {
             return redirect()->route('user.index')->with('error', 'Thành viên '.$userInfo->name.' thuộc nhóm quản trị viên không thể xóa.');
+        }
+
+        $userPost=$this->postRepository->findByCondition($condition);
+        
+        if(isset($userPost)){
+            return redirect()->route('user.index')->with('error', 'Thành viên '.$userInfo->name.' có bài viết nên không thể xóa.');
         }
 
         $user=$this->userRepository->findById($id);

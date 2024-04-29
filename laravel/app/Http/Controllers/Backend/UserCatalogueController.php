@@ -94,6 +94,8 @@ class UserCatalogueController extends Controller
             return redirect()->route('user.catalogue.index')->with('error', 'Đây là nhóm quản trị viên không thể xóa.');
         }elseif($id == 10){
             return redirect()->route('user.catalogue.index')->with('error', 'Đây là nhóm khách hàng không thể xóa.');
+        }elseif($id == 9){
+            return redirect()->route('user.catalogue.index')->with('error', 'Đây là nhóm tác giả không thể xóa.');
         }
 
         $this->authorize('modules', 'user.catalogue.destroy');
