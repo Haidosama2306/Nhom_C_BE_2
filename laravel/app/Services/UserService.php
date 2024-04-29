@@ -65,7 +65,11 @@ class UserService implements UserServiceInterface
         DB::beginTransaction();
         try{
             $payload = $request->only('email','password');
-            if($payload['password'] == null){
+            if(isset($payload['password'])){
+                if($payload['password'] == null){
+                    $payload['password'] = auth()->user()->password;
+                }
+            }else{
                 $payload['password'] = auth()->user()->password;
             }
             $flag=$this->userRepository->update($id, $payload);            
