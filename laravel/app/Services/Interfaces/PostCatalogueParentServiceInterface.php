@@ -10,5 +10,5 @@ interface PostCatalogueParentServiceInterface
 {
     public function paginate($request);
     public function createPostCatalogueParent($request);
-    
+    public function updatePostCatalogueParent($id, $request);
 }

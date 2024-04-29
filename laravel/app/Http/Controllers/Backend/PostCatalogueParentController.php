@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\Interfaces\PostCatalogueParentServiceInterface as PostCatalogueParentService;
 use App\Http\Requests\StorePostCatalogueParentRequest;
 use App\Repositories\Interfaces\PostCatalogueParentRepositoryInterface as PostCatalogueParentRepository;
+use App\Http\Requests\UpdatePostCatalogueParentRequest;
 
 
 class PostCatalogueParentController extends Controller
@@ -54,6 +55,25 @@ class PostCatalogueParentController extends Controller
         }
            return redirect()->route('post.catalogue.parent.index')->with('error','Thêm mới nhóm bài viết cha thất bại. Hãy thử lại');
         
+    }
+    public function edit($id){
+        $template='Backend.post.catalogueParent.store';
+
+        $config=$this->configCUD();
+
+        $config['seo']=config('apps.postCatalogueParent.edit');
+
+        $config['method']='edit';
+
+        $postCatalogueParent = $this->postCatalogueParentRepository->findById($id);
+        
+        return view('Backend.dashboard.layout', compact('template','config','postCatalogueParent'));
+    }
+    public function update($id, UpdatePostCatalogueParentRequest $request){
+        if($this->postCatalogueParentService->updatePostCatalogueParent($id, $request)){
+            return redirect()->route('post.catalogue.parent.index')->with('success','Cập nhật nhóm bài viết cha thành công');
+        }
+           return redirect()->route('post.catalogue.parent.index')->with('error','Cập nhật nhóm bài cha viết thất bại. Hãy thử lại');
     }
     
     private function configIndex(){
