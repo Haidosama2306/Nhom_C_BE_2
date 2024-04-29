@@ -8,7 +8,8 @@ namespace App\Services\Interfaces;
  */
 interface PostServiceInterface
 {
-    public function paginate($request);//load dữ liệu user Catalogue theo trang
-    public function createPost($request);//xử thêm user Catalogue từ view
+    public function paginate($request);
+    public function createPost($request);
+    public function updatePost($id, $request);
    
 }

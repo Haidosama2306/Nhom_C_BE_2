@@ -59,7 +59,24 @@ class PostService implements PostServiceInterface
             return true;
         }catch(\Exception $ex){
             DB::rollBack();
-            echo $ex->getMessage();die();
+            echo $ex->getMessage();//die();
+            return false;
+        }
+    }
+    public function updatePost($id, $request){
+        DB::beginTransaction();
+        try{
+            $payload = $request->only($this->payload());
+            if(isset($payload['album'])){
+                $payload['album']=json_encode($payload['album']);
+            }
+            // dd($payload);
+            $post=$this->postRepository->update($id,$payload);
+            DB::commit();
+            return true;
+        }catch(\Exception $ex){
+            DB::rollBack();
+            echo $ex->getMessage();//die();
             return false;
         }
     }
