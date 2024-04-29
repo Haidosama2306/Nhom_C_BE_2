@@ -90,6 +90,27 @@ class PostController extends Controller
         }
            return redirect()->route('post.index')->with('error','Cập nhật bài viết thất bại. Hãy thử lại');
     }
+    public function destroy($id){
+        $template='Backend.post.post.destroy';
+
+        $config=$this->configCUD();
+
+        $config['seo']=config('apps.post.delete');
+
+        $post=$this->postRepository->findById($id);
+
+        $postCataloguesParent=$this->postCatalogueParentRepository->all();
+        
+        $this->authorize('modules', 'post.destroy');
+
+        return view('Backend.dashboard.layout', compact('template','config','post','postCataloguesParent'));
+    }
+    public function delete($id){
+        if($this->postService->deletePost($id)){
+            return redirect()->route('post.index')->with('success','Xóa bài viết thành công');
+        }
+           return redirect()->route('post.index')->with('error','Xóa bài viết thất bại. Hãy thử lại');
+    }
     private function configIndex(){
         return[
             'js'=>[
