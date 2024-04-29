@@ -40,6 +40,8 @@ class UserController extends Controller
 
         $userCatalogues=$this->userCatalogueRepository->all();
 
+        $this->authorize('modules', 'user.index');
+
         return view('Backend.dashboard.layout', compact('template','config','users','userCatalogues'));
     }
 
@@ -55,6 +57,8 @@ class UserController extends Controller
         $provinces=$this->provinceRepository->all();
 
         $userCatalogues=$this->userCatalogueRepository->all();
+
+        $this->authorize('modules', 'user.store');
 
         return view('Backend.dashboard.layout', compact('template','config','provinces','userCatalogues'));
     }
@@ -87,6 +91,8 @@ class UserController extends Controller
 
         $userInfo=$this->userInfoRepository->findByCondition($condition);
 
+        $this->authorize('modules', 'user.edit');
+
         return view('Backend.dashboard.layout', compact('template','config','provinces','user', 'userCatalogues','userInfo'));
     }
     public function update($id, UpdateUserRequest $request){
@@ -104,6 +110,8 @@ class UserController extends Controller
         $config['seo']=config('apps.user.delete');
 
         $user=$this->userRepository->findById($id);
+
+        $this->authorize('modules', 'user.destroy');
 
         return view('Backend.dashboard.layout', compact('template','config','user'));
     }
