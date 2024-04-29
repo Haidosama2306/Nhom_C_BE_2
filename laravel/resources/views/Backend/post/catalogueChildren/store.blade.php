@@ -10,7 +10,7 @@
     </div>
 @endif
 @php
-    $url=($config['method']=='create')?route('post.catalogue.children.create'):route('post.catalogue.children.update', $postCatalogueParent->id)
+    $url=($config['method']=='create')?route('post.catalogue.children.create'):route('post.catalogue.children.update', $postCatalogueChildren->id)
 @endphp
 <form action="{{ $url }}" method="post" class="box">
     @csrf

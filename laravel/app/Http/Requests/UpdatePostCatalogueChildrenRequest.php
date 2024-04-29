@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePostCatalogueParentRequest extends FormRequest
+class UpdatePostCatalogueChildrenRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class UpdatePostCatalogueParentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|string|unique:post_catalogues_parent,name, '.$this->id.'|regex:/^[^\d]+$/',
+            'name'=>'required|string|unique:post_catalogues_children,name, '.$this->id.'|regex:/^[^\d]+$/',
         ];
     }
     public function messages(): array
@@ -31,7 +31,7 @@ class UpdatePostCatalogueParentRequest extends FormRequest
             'name.required'=>'Bạn chưa nhập tên nhóm bài viết cha',
             'name.string'=>'Tên nhóm bài viết cha phải là dạng ký tự',
             'name.regex'=>'Tên nhóm bài viết cha không được chưa ký tự số',
-            'name.unique'=>'Tên nhóm bài viết cha này đã tồn tại. Hãy nhập tên khác',
+            'name.unique'=>'Tên nhóm bài viết con này đã tồn tại. Hãy nhập tên khác',
         ];
     }
 }
