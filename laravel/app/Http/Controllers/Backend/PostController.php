@@ -10,6 +10,8 @@ use App\Repositories\Interfaces\PostRepositoryInterface as PostRepository;
 use App\Repositories\Interfaces\PostCatalogueParentRepositoryInterface as PostCatalogueParentRepository;
 use App\Repositories\Interfaces\PostCatalogueChildrenRepositoryInterface as PostCatalogueChildrenRepository;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Facades\Auth;
+use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 
 class PostController extends Controller
 {
@@ -17,12 +19,14 @@ class PostController extends Controller
     protected $postRepository;
     protected $postCatalogueParentRepository;
     protected $postCatalogueChildrenRepository;
+    protected $userRepository;
 
-    public function __construct(PostService $postService, PostRepository $postRepository, PostCatalogueParentRepository $postCatalogueParentRepository,PostCatalogueChildrenRepository $postCatalogueChildrenRepository){
+    public function __construct(PostService $postService, PostRepository $postRepository, PostCatalogueParentRepository $postCatalogueParentRepository,PostCatalogueChildrenRepository $postCatalogueChildrenRepository, UserRepository $userRepository){
         $this->postService=$postService;
         $this->postRepository=$postRepository;
         $this->postCatalogueParentRepository=$postCatalogueParentRepository;
         $this->postCatalogueChildrenRepository=$postCatalogueChildrenRepository;
+        $this->userRepository=$userRepository;
     }
     public function index(Request $request){
         $config=$this->configIndex();
@@ -81,6 +85,20 @@ class PostController extends Controller
         $album = json_decode($post->album);
 
         $this->authorize('modules', 'post.edit');
+
+        $id_logged = Auth::id();
+       
+        $user_logged=$this->userRepository->findById($id_logged);
+
+        $condition=[
+            ['id', '=', $id]
+        ];
+
+        $postInfo=$this->postRepository->findByCondition($condition);
+
+        if($user_logged->id != $postInfo->user_id){
+            return redirect()->route('post.index')->with('error', 'Bạn không phải là tác giả của bài viết này nên không thể cập nhật nó.');
+        }
 
         return view('Backend.dashboard.layout', compact('template','config','post','postCataloguesParent','album'));
     }
