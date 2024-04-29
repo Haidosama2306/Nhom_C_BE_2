@@ -114,6 +114,7 @@ class UserCatalogueController extends Controller
         $permissions = $this->permissionRepository->all();
         $template='Backend.user.catalogue.permission';
         $config['seo']=config('apps.permission.edit');
+        $this->authorize('modules', 'user.catalogue.permission');
         return view('Backend.dashboard.layout', compact('template','userCatalogues','permissions','config'));
     }
     public function updatePermission(Request $request){

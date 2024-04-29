@@ -120,7 +120,15 @@ class UserController extends Controller
        
         $user_logged=$this->userRepository->findById($id_logged);
 
-        if ($user_logged->user_catalogue_id != 1) {
+        if($user_logged->user_catalogue_id == $userInfo->user_catalogue_id && $userInfo->user_catalogue_id == 1){
+            return redirect()->route('user.index')->with('error', 'Bạn đang là quản trị viên nếu ban muốn thôi chức vụ vui long liên hệ với admin để giải quyết vấn đề quan trọng này sđt: 0333444555.');
+        }
+
+        if($user_logged->user_catalogue_id == $userInfo->user_catalogue_id){
+            return redirect()->route('user.index')->with('error', 'Thành viên '.$userInfo->name.' có cùng cập bậc với bạn nên không thể xóa.');
+        }
+
+        if ($userInfo->user_catalogue_id == 1) {
             return redirect()->route('user.index')->with('error', 'Thành viên '.$userInfo->name.' thuộc nhóm quản trị viên không thể xóa.');
         }
 

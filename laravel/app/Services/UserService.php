@@ -36,7 +36,7 @@ class UserService implements UserServiceInterface
             $condition, 
             $perpage, 
             ['path'=> 'user/index'],
-            [],
+            ['users.user_catalogue_id','ASC'],
             [
                 ['user_info as tb2','tb2.user_id','=','users.id']
             ]
