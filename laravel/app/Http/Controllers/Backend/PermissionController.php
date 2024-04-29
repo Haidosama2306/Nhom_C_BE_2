@@ -71,6 +71,23 @@ class PermissionController extends Controller
         }
            return redirect()->route('permission.index')->with('error','Cập nhật quyền thất bại. Hãy thử lại');
     }
+    public function destroy($id){
+        $template='Backend.permission.destroy';
+
+        $config=$this->configCUD();
+
+        $config['seo']=config('apps.permission.delete');
+
+        $permission=$this->permissionRepository->findById($id);
+
+        return view('Backend.dashboard.layout', compact('template','config','permission'));
+    }
+    public function delete($id){
+        if($this->permissionService->deletePermission($id)){
+            return redirect()->route('permission.index')->with('success','Xóa quyền thành công');
+        }
+           return redirect()->route('permission.index')->with('error','Xóa quyền thất bại. Hãy thử lại');
+    }
     private function configIndex(){
         return[
             'js'=>[
