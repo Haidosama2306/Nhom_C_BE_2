@@ -28,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
 
         'App\Services\Interfaces\PostCatalogueChildrenServiceInterface' => 'App\Services\PostCatalogueChildrenService',
         'App\Repositories\Interfaces\PostCatalogueChildrenRepositoryInterface' => 'App\Repositories\PostCatalogueChildrenRepository',
+
+        'App\Services\Interfaces\PostServiceInterface' => 'App\Services\PostService',
+        'App\Repositories\Interfaces\PostRepositoryInterface' => 'App\Repositories\PostRepository',
     ];
     /**
      * Register any application services.

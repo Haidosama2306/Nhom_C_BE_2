@@ -12,7 +12,8 @@ use App\Http\Controllers\Ajax\LocationController;
 use App\Http\Controllers\Backend\PermissionController;
 use App\Http\Controllers\Backend\PostCatalogueParentController;
 use App\Http\Controllers\Backend\PostCatalogueChildrenController;
-
+use App\Http\Controllers\Backend\PostController;
+use App\Http\Controllers\Ajax\PostCatalogueController;
 
 /*
 |--------------------------------------------------------------------------
@@ -87,3 +88,13 @@ Route::group(['prefix'=>'post/catalogue/children'], function(){
     Route::get('{id}/destroy',[PostCatalogueChildrenController::class, 'destroy'])->name('post.catalogue.children.destroy')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
     Route::post('{id}/delete',[PostCatalogueChildrenController::class, 'delete'])->name('post.catalogue.children.delete')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
 });
+Route::group(['prefix'=>'post'], function(){
+    Route::get('index',[PostController::class, 'index'])->name('post.index')->middleware(AuthenticateMiddleware::class);
+    Route::get('store',[PostController::class, 'store'])->name('post.store')->middleware(AuthenticateMiddleware::class);
+    Route::post('create',[PostController::class, 'create'])->name('post.create')->middleware(AuthenticateMiddleware::class);
+    Route::get('{id}/edit',[PostController::class, 'edit'])->name('post.edit')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::post('{id}/update',[PostController::class, 'update'])->name('post.update')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::get('{id}/destroy',[PostController::class, 'destroy'])->name('post.destroy')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::post('{id}/delete',[PostController::class, 'delete'])->name('post.delete')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
+});
+Route::get('ajax/postCatalogue/getPostCatalogue',[PostCatalogueController::class, 'getPostCatalogue'])->name('ajax.postCatalogue.getPostCatalogue')->middleware(AuthenticateMiddleware::class);

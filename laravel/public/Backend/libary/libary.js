@@ -97,11 +97,17 @@
         }
     } 
 
+    HT.sortui = () => {
+        $("#sortable").sortable()
+        $("#sortable").disableSelection()
+    }
+
     $document.ready(function(){
         HT.select2();
         HT.checkAll();
         HT.checkBoxItem();
         HT.deleteAll();
+        HT.sortui();
     })
 
 })(jQuery)
