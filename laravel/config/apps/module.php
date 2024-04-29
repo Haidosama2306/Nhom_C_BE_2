@@ -30,7 +30,10 @@
                         'title'=>'QL Nhóm Bài Viết Cha',
                         'route'=>'post/catalogue/parent/index'
                     ],
-                    
+                    [
+                        'title'=>'QL Nhóm Bài Viết Con',
+                        'route'=>'post/catalogue/children/index'
+                    ],
                 ]
             ],
             

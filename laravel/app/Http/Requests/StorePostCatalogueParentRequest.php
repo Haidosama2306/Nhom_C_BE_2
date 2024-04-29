@@ -22,7 +22,7 @@ class StorePostCatalogueParentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|string|regex:/^[^\d]+$/',
+            'name'=>'required|string|unique:post_catalogues_parent|regex:/^[^\d]+$/',
         ];
     }
     public function messages(): array
@@ -30,7 +30,8 @@ class StorePostCatalogueParentRequest extends FormRequest
         return [
             'name.required'=>'Bạn chưa nhập tên nhóm bài viết cha',
             'name.string'=>'Tên nhóm bài viết cha phải là dạng ký tự',
-            'name.regex'=>'Tên nhóm bài viết cha không được chưa ký tự số'
+            'name.regex'=>'Tên nhóm bài viết cha không được chưa ký tự số',
+            'name.unique'=>'Tên nhóm bài viết cha này đã tồn tại. Hãy nhập tên khác',
         ];
     }
 }
