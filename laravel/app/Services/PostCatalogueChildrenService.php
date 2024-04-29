@@ -68,6 +68,18 @@ class PostCatalogueChildrenService implements PostCatalogueChildrenServiceInterf
             return false;
         }
     }
+    public function deletePostCatalogueChildren($id){
+        DB::beginTransaction();
+        try{
+            $postCatalogue=$this->postCatalogueChildrenRepository->forceDelete($id);
+            DB::commit();
+            return true;
+        }catch(\Exception $ex){
+            DB::rollBack();
+            echo $ex->getMessage();//die();
+            return false;
+        }
+    }
     private function paginateSelect()
     {
         return [

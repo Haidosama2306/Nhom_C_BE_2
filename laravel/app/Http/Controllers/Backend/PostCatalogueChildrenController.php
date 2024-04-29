@@ -9,6 +9,8 @@ use App\Http\Requests\StorePostCatalogueChildrenRequest;
 use App\Repositories\Interfaces\PostCatalogueChildrenRepositoryInterface as PostCatalogueChildrenRepository;
 use App\Repositories\Interfaces\PostCatalogueParentRepositoryInterface as PostCatalogueParentRepository;
 use App\Http\Requests\UpdatePostCatalogueChildrenRequest;
+use App\Http\Requests\DeletePostCatalogueChildrenRequest;
+
 
 class PostCatalogueChildrenController extends Controller
 {
@@ -83,7 +85,28 @@ class PostCatalogueChildrenController extends Controller
         }
            return redirect()->route('post.catalogue.children.index')->with('error','Cập nhật nhóm bài con viết thất bại. Hãy thử lại');
     }
-   
+    public function destroy($id){
+        $template='Backend.post.catalogueChildren.destroy';
+
+        $config=$this->configCUD();
+
+        $config['seo']=config('apps.postCatalogueChildren.delete');
+
+        $postCatalogueChildren = $this->postCatalogueChildrenRepository->findById($id);
+
+        $postCataloguesParent=$this->postCatalogueParentRepository->all();
+
+        return view('Backend.dashboard.layout', compact('template','config','postCatalogueChildren','postCataloguesParent'));
+    }
+    public function delete($id, DeletePostCatalogueChildrenRequest $request){
+        if ($request->hasPosts()) {
+            return redirect()->route('post.catalogue.children.index')->with('error', 'Không thể xóa nhóm bài viết con này vì còn bài viết con bên trong nhóm.');
+        }
+        if($this->postCatalogueChildrenService->deletePostCatalogueChildren($id)){
+            return redirect()->route('post.catalogue.children.index')->with('success','Xóa nhóm bài viết con thành công');
+        }
+           return redirect()->route('post.catalogue.children.index')->with('error','Xóa nhóm bài viết con thất bại. Hãy thử lại');
+    }
     private function configIndex(){
         return[
             'js'=>[
