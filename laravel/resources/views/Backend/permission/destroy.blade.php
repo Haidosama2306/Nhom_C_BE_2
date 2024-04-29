@@ -16,10 +16,10 @@
         <div class="row">
             <div class="col-lg-5">
                 <div class="panel-head">
-                    <div class="panel-title">{{ __('messages.destroy') }}</div>
+                    <div class="panel-title">Thông tin chung</div>
                     <div class="panel-description">
-                        <p>{{ __('messages.destroy_panel_description_permission_1') }} <span style="color: red">{{ $permission->name }}</span></p>
-                        <p>{{ __('messages.destroy_panel_description_1') }} <span class="text-danger">{{ __('messages.destroy_panel_description_2') }}</span> {{ __('messages.destroy_panel_description_permission_2') }} <br> {{ __('messages.destroy_panel_description_3') }}</p>
+                        <p>- Bạn đang muốn xóa thành viên có email là: <span style="color: red">{{ $permission->name }}</span></p>
+                        <p>- Lưu ý <span class="text-danger">KHÔNG THỂ</span> khôi phục quyền này sau khi xóa. <br> Hãy chắc chắn bạn muốn thực hiện chức năng này</p>
                     </div>
                 </div>
             </div>
