@@ -3,3 +3,120 @@
     font-size: 12px;
     margin-top: 5px;
 }
+.mt20{
+    margin-top: 20px;
+}
+.mb15{
+    margin-bottom: 15px;
+}
+.mb10{
+    margin-bottom: 10px;
+}
+h5{
+    text-transform: uppercase;
+    font-weight: normal;
+}
+/* user */
+.table .image{
+    height: 73px;
+    display: block;
+}
+.img-cover img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+table strong{
+    min-width: 88px;
+    display: inline-block;
+}
+.table>thead>tr>th,
+.table>tbody>tr>th,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>tbody>tr>td,
+.table>tfoot>tr>td{
+    vertical-align: middle;
+}
+/* tìm kiếm user */
+.uk-flex-space-between{
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+}
+.uk-flex-middle{
+    -ms-flex-align:center;
+    -webkit-align-items:center;
+    align-items: center;
+}
+.uk-flex{
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+.filter-wrapper{
+    margin-bottom: 20px;
+}
+.filter-wrapper .perpage{
+    display: inline-block;
+}
+
+.mr10{
+    margin-right: 10px;
+}
+.btn{
+    margin-bottom: 0 !important;
+    font-size: 13px;
+    border-radius: 0;
+    height: 32px;
+}
+.filter-wrapper .form-control{
+    height: 32px;
+    max-width: 200px;
+    font-size: 13px;
+}
+.mr5{
+    margin-right: 5px;
+}
+.ml10{
+    margin-left: 10px;
+}
+.box .ibox{
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+}
+
+/* CSS CHO CREATE USER */
+.control-label{
+    display: block;
+}
+.panel-title{
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+.panel-desciption{
+    font-size: 15px;
+}
+/* CSS CHO CHECKBOX USER.INDEX */
+#checkAll, .checkBoxItem{
+    width: 15px;
+    height: 15px;
+}
+.active-bg{
+    background: #ffc !important;
+}
+/* CSS CHO SWITCHCHERY */
+.switchery-small{
+    border-radius: 20px;
+    height: 20px;
+    width: 30px;
+}
+.switchery-small>small{
+    height: 20px;
+    width: 20px;
+}
+/* CSS cho select2 */
+.select2-container--default{
+    margin-right: 10px;
+}
