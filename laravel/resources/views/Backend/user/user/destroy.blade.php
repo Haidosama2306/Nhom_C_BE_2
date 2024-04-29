@@ -50,7 +50,7 @@
                                     <input 
                                     type="text"
                                     name="name"
-                                    value="{{ old('name', ($user->name)??'') }}"
+                                    value="{{ old('name', ($userInfo->name)??'') }}"
                                     class="form-control"
                                     placeholder=""
                                     autocomplete="off"
@@ -73,7 +73,7 @@
 </form>
 <!-- XỬ LÝ HUYỆN XẢ KHI NHẬP SAI BỊ LOAD LẠI TRANG -->
 <script>
-    var province_id='{{ (isset($user->province_id)) ? $user->province_id : old('province_id') }}'
-    var district_id='{{ (isset($user->district_id)) ? $user->district_id : old('district_id') }}'
-    var ward_id='{{ (isset($user->ward_id)) ? $user->ward_id : old('ward _id') }}'
+    var province_id='{{ (isset($userInfo->province_id)) ? $userInfo->province_id : old('province_id') }}'
+    var district_id='{{ (isset($userInfo->district_id)) ? $userInfo->district_id : old('district_id') }}'
+    var ward_id='{{ (isset($userInfo->ward_id)) ? $userInfo->ward_id : old('ward _id') }}'
 </script>

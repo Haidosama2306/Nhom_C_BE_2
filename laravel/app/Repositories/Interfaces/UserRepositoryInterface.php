@@ -18,6 +18,7 @@ interface UserRepositoryInterface
         array $relations=[],
         array $rawQuery = []
     );
+    public function all(array $relation = []);
     public function create(array $payload =[]);
     public function createPivot($model, array $payload=[], string $relation='');
     public function findById(int $id, array $column=['*'], array $relation =[]);

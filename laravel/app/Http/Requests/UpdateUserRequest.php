@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateUserRequest extends FormRequest
 {
@@ -24,7 +25,14 @@ class UpdateUserRequest extends FormRequest
         return [
             'email' => 'required|string|email|unique:users,email, '.$this->id.'|max:255',
             'name'=>'required|string|regex:/^[^\d]+$/',
-            'user_catalogue_id'=>'required|integer|gt:0',
+            'user_catalogue_id'=> [
+                'required',
+                'integer',
+                'gt:0',
+                Rule::unique('users')->where(function ($query) {
+                    return $query->where('user_catalogue_id', 1);
+                }),
+            ],
             'phone'=>'required|string|regex:/^0[0-9]{9}$/'
         ];
     }
@@ -41,6 +49,7 @@ class UpdateUserRequest extends FormRequest
             'name.string'=>'Tên phải là dạng ký tự',
             'name.regex'=>'Tên không được chứa ký tự số',
             'user_catalogue_id'=>'Bạn chưa chọn nhóm thành viên',
+            'user_catalogue_id.unique'=>'Nhóm quản trị viên này đã có người đãm nhận',
             'phone.required'=>'Bạn chưa nhập số điện thoại',
             'phone.regex'=>'Số điện không hợp lệ vui lòng nhập theo định dạng: 0xxxxxxxxx'
         ];
