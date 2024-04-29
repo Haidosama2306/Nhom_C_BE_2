@@ -28,9 +28,9 @@ class StorePostCatalogueParentRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'name.required'=>'Bạn chưa nhập họ tên',
-            'name.string'=>'Tên phải là dạng ký tự',
-            'name.regex'=>'Tên không được chưa ký tự số'
+            'name.required'=>'Bạn chưa nhập tên nhóm bài viết cha',
+            'name.string'=>'Tên nhóm bài viết cha phải là dạng ký tự',
+            'name.regex'=>'Tên nhóm bài viết cha không được chưa ký tự số'
         ];
     }
 }

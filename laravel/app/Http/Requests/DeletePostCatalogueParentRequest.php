@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\PostCatalogueParent;
 
-class UpdatePostCatalogueParentRequest extends FormRequest
+class DeletePostCatalogueParentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,5 +33,10 @@ class UpdatePostCatalogueParentRequest extends FormRequest
             'name.string'=>'Tên nhóm bài viết cha phải là dạng ký tự',
             'name.regex'=>'Tên nhóm bài viết cha không được chưa ký tự số'
         ];
+    }
+    public function hasPostCataloguesChildren(): bool
+    {
+        $postCatalogueParent = PostCatalogueParent::findOrFail($this->route('id'));
+        return $postCatalogueParent->post_catalogues_children()->exists();
     }
 }
