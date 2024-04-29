@@ -64,3 +64,7 @@ Route::group(['prefix'=>'permission'], function(){
     Route::get('{id}/destroy',[PermissionController::class, 'destroy'])->name('permission.destroy')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);;
     Route::post('{id}/delete',[PermissionController::class, 'delete'])->name('permission.delete')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);;
 });
+Route::group(['prefix'=>'user/profile'], function(){
+    Route::get('edit',[DashboardController::class, 'edit'])->name('user.profile.edit')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
+    Route::post('update',[DashboardController::class, 'update'])->name('user.profile.update')->where(['id'=>'[0-9]+'])->middleware(AuthenticateMiddleware::class);
+});
