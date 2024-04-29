@@ -15,7 +15,16 @@ class UserCatalogueRepository extends BaseRepository implements UserCatalogueRep
     public function __construct(UserCatalogue $model){
         $this->model=$model;
     }
-    public function pagination(array $column = ['*'], array $condition = [], array $join = [], array $extend = [], int $perpage = 0, array $relations=[]) {
+    public function pagination(
+        array $column=['*'],
+        array $condition=[],
+        int $perpage=0, 
+        array $extend=[],
+        array $orderBy=[],
+        array $join=[],
+        array $relations=[],
+        array $rawQuery = []
+    ) {
         $query = $this->model->select($column)->where(function ($query) use ($condition) {
             if (isset($condition['keyword']) && !empty($condition['keyword'])) {
                 $query->where(function ($query) use ($condition) {
@@ -24,15 +33,21 @@ class UserCatalogueRepository extends BaseRepository implements UserCatalogueRep
                        
                 });
             }
-        
+            
+           
         });
         if(isset($relations) && !empty($relations)) {
             foreach($relations as $relation) {
                 $query->withCount($relation);
             }
         }
-        if (!empty($join)) {
-            $query->join(...$join);
+        if(isset($join)&&is_array($join)&&count($join)){
+            foreach($join as $key =>$val){
+                $query->join($val[0],$val[1],$val[2],$val[3]);
+            }
+        }
+        if(isset($orderBy)&&!empty($orderBy)){
+            $query->orderBy($orderBy[0], $orderBy[1]);
         }
         return $query->paginate($perpage)->withQueryString()->withPath(env('APP_URL') . $extend['path']);
     }    
