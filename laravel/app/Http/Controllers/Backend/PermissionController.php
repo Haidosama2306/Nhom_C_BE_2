@@ -51,7 +51,26 @@ class PermissionController extends Controller
            return redirect()->route('permission.index')->with('error','Thêm mới quyền thất bại. Hãy thử lại');
         
     }
-    
+    public function edit($id){
+        $template='Backend.permission.store';
+
+        $config=$this->configCUD();
+
+        $config['seo']=config('apps.permission.edit');
+
+        $config['method']='edit';
+
+        $permission=$this->permissionRepository->findById($id);
+       
+        return view('Backend.dashboard.layout', compact('template','config','permission'));
+    }
+    public function update($id, UpdatePermissionRequest $request){
+        
+        if($this->permissionService->updatePermission($id, $request)){
+            return redirect()->route('permission.index')->with('success','Cập nhật quyền thành công');
+        }
+           return redirect()->route('permission.index')->with('error','Cập nhật quyền thất bại. Hãy thử lại');
+    }
     private function configIndex(){
         return[
             'js'=>[
