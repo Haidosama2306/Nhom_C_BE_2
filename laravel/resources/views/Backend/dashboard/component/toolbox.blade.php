@@ -6,7 +6,7 @@
         <i class="fa fa-wrench"></i>
     </a>
     <ul class="dropdown-menu dropdown-user">
-        <li><a href="#" class="deleteAll" data-model="User" onclick="return confirmDelete();" id="deleteAllLink">Delete toàn bộ</a>
+       <li><a href="#" class="deleteAll" data-model="{{ $config['model'] }}" onclick="return confirmDelete();" id="deleteAllLink">Delete toàn bộ</a>
         </li>
     </ul>
     <a class="close-link">
@@ -15,13 +15,13 @@
 </div>
 <script>
     function confirmDelete() {
-        let result = confirm('Bạn có chắc chắn muốn xóa những người dùng này?');
+        let result = confirm('{{ $content }}');
         if (result) {
             document.getElementById('deleteAllLink').classList.add('deleteAll');
-            return true; 
+            return true;
         } else {
             document.getElementById('deleteAllLink').classList.remove('deleteAll');
-            return false; 
+            return false;
         }
     }
 </script>
