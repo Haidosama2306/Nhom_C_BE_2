@@ -64,7 +64,10 @@ class UserService implements UserServiceInterface
     public function updateUser($id, $request){
         DB::beginTransaction();
         try{
-            $payload = $request->only('email');
+            $payload = $request->only('email','password');
+            if($payload['password'] == null){
+                $payload['password'] = auth()->user()->password;
+            }
             $flag=$this->userRepository->update($id, $payload);            
             if($flag==true){
                 $condition=[
