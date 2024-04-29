@@ -111,6 +111,10 @@ class UserController extends Controller
 
         $user=$this->userRepository->findById($id);
 
+        if ($user->user_catalogue_id == 1) {
+            return redirect()->route('user.index')->with('error', 'Thành viên này thuộc nhóm quản trị viên không thể xóa.');
+        }
+
         $this->authorize('modules', 'user.destroy');
 
         return view('Backend.dashboard.layout', compact('template','config','user'));
