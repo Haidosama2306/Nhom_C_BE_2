@@ -63,7 +63,7 @@ class PostCatalogueParentService implements PostCatalogueParentServiceInterface
     public function deletePostCatalogueParent($id){
         DB::beginTransaction();
         try{
-            $postCatalogue=$this->postCatalogueParentRepository->delete($id);
+            $postCatalogue=$this->postCatalogueParentRepository->forceDelete($id);
             DB::commit();
             return true;
         }catch(\Exception $ex){
