@@ -60,7 +60,18 @@ class PostCatalogueParentService implements PostCatalogueParentServiceInterface
             return false;
         }
     }
-   
+    public function deletePostCatalogueParent($id){
+        DB::beginTransaction();
+        try{
+            $postCatalogue=$this->postCatalogueParentRepository->delete($id);
+            DB::commit();
+            return true;
+        }catch(\Exception $ex){
+            DB::rollBack();
+            echo $ex->getMessage();//die();
+            return false;
+        }
+    }
     private function paginateSelect(){
         return[
             'post_catalogues_parent.id',
