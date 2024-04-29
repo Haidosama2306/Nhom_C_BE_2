@@ -34,6 +34,10 @@
                         'title'=>'QL Nhóm Bài Viết Con',
                         'route'=>'post/catalogue/children/index'
                     ],
+                    [
+                        'title'=>'QL Bài Viết',
+                        'route'=>'post/index'
+                    ],
                 ]
             ],
             

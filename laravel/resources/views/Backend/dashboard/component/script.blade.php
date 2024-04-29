@@ -5,6 +5,8 @@
     <script src="Backend/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="Backend/js/inspinia.js"></script>
     <script src="Backend/js/plugins/pace/pace.min.js"></script>
+    <script src="Backend/plugins/jquery-ui.min.js"></script>
+
     <!-- jQuery UI -->
     <script src="Backend/js/plugins/jquery-ui/jquery-ui.min.js"></script>
 
