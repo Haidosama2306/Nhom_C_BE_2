@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Models\User;
+
 
 class UpdateUserRequest extends FormRequest
 {
@@ -29,9 +31,28 @@ class UpdateUserRequest extends FormRequest
                 'required',
                 'integer',
                 'gt:0',
-                Rule::unique('users')->where(function ($query) {
-                    return $query->where('user_catalogue_id', 1);
-                }),
+    
+                function ($attribute, $value, $fail) {
+                    if (auth()->user()->user_catalogue_id == 1 && $value != 1) {
+                        $fail('Bạn đang là Quản Trị Viên, nếu bạn muốn chuyển đổi chức vụ vui lòng liên hệ admin sđt: 0333444555.');
+                    }
+                },
+                function ($attribute, $value, $fail) {
+                    if (auth()->user()->user_catalogue_id != 1) {
+                        $exists = User::where('user_catalogue_id', 1);
+                        if ($exists) {
+                            $fail('Nhóm quản trị viên này đã có người đảm nhận.');
+                        }
+                    }else{
+                        $user_id = $this->route('id');
+                        if ($user_id != auth()->user()->id && $value == 1) {
+                            $exists = User::where('user_catalogue_id', 1);
+                            if ($exists) {
+                                $fail('Nhóm quản trị viên này đã có người đảm nhận.');
+                            }
+                        }
+                    }
+                },
             ],
             'phone'=>'required|string|regex:/^0[0-9]{9}$/'
         ];
@@ -48,7 +69,7 @@ class UpdateUserRequest extends FormRequest
             'name.required'=>'Bạn chưa nhập họ tên',
             'name.string'=>'Tên phải là dạng ký tự',
             'name.regex'=>'Tên không được chứa ký tự số',
-            'user_catalogue_id'=>'Bạn chưa chọn nhóm thành viên',
+            'user_catalogue_id.required'=>'Bạn chưa chọn nhóm thành viên',
             'user_catalogue_id.unique'=>'Nhóm quản trị viên này đã có người đãm nhận',
             'phone.required'=>'Bạn chưa nhập số điện thoại',
             'phone.regex'=>'Số điện không hợp lệ vui lòng nhập theo định dạng: 0xxxxxxxxx'
