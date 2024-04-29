@@ -20,6 +20,12 @@
                         IN+
                     </div>
                 </li>
+                <li class="active">
+                    <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Quản lí thành viên</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="{{ route('user.catalogue.index') }}">QL nhóm thành viên</a></li>
+                    </ul>
+                </li>
                 
             </ul>
 
