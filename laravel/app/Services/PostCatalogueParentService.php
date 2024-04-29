@@ -47,7 +47,19 @@ class PostCatalogueParentService implements PostCatalogueParentServiceInterface
             return false;
         }
     }
-
+    public function updatePostCatalogueParent($id, $request){
+        DB::beginTransaction();
+        try{
+            $payload = $request->only($this->payload());
+            $flag=$this->postCatalogueParentRepository->update($id,$payload);
+            DB::commit();
+            return true;
+        }catch(\Exception $ex){
+            DB::rollBack();
+            echo $ex->getMessage();//die();
+            return false;
+        }
+    }
    
     private function paginateSelect(){
         return[
