@@ -23,7 +23,7 @@
                             </a></td>
                             @foreach($userCatalogues as $userCatalogue)
                             <td>
-                                <input {{ (collect($userCatalogue->permissions)->contains('id', $permission->id)) ? 'checked' : '' }} type="checkbox" name="permission[{{ $userCatalogue->id }}][]" value="{{ $permission->id }}" class="form-control">
+                                <input {{ ($userCatalogue->permissions->contains('id', $permission->id)) ? 'checked' : '' }} type="checkbox" name="permission[{{ $userCatalogue->id }}][]" value="{{ $permission->id }}" class="form-control">
                             </td>
                             @endforeach
                         </tr>

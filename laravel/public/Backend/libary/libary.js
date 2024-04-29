@@ -95,7 +95,7 @@
                 });
             })
         }
-    }    
+    } 
 
     $document.ready(function(){
         HT.select2();

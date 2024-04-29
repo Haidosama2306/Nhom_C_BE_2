@@ -22,7 +22,7 @@ class UpdateUserCatalogueRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>'required|string|regex:/^[^\d]+$/',
+            'name'=>'required|string',
             
         ];
     }
@@ -31,10 +31,8 @@ class UpdateUserCatalogueRequest extends FormRequest
     {
         return [
           
-            'name.required'=>'Bạn chưa nhập họ tên',
-            'name.string'=>'Tên phải là dạng ký tự',
-            'name.regex'=>'Tên không được chứa ký tự số',
-         
+            'name.required'=>'Bạn chưa nhập nhóm thành viên',
+            'name.string'=>'Tên nhóm thành viên là dạng ký tự',         
         ];
     }
 }
