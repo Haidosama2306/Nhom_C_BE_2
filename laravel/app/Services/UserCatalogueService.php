@@ -54,4 +54,18 @@ class UserCatalogueService implements UserCatalogueServiceInterface
             return false;
         }
     }
-}
+
+    public function updateUserCatalogue($id, $request){
+        DB::beginTransaction();
+        try{
+            $payload = $request->except('_token','send');
+            $userCatalogue=$this->userCatalogueRepository->update($id, $payload);
+            DB::commit();
+            return true;
+        }catch(\Exception $ex){
+            DB::rollBack();
+            echo $ex->getMessage();//die();
+            return false;
+        }
+    }
+}   
