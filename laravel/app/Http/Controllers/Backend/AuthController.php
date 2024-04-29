@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 
 class AuthController extends Controller
 {
-    public function __construct(){
-        
+    protected $userRepository;
+
+    public function __construct(UserRepository $userRepository){
+        $this->userRepository=$userRepository;
     }
 
     public function index(){
@@ -19,7 +22,14 @@ class AuthController extends Controller
 
     public function login(AuthRequest $request){
         $credentials=['email'=>$request->input('email'), 'password'=>$request->input('password')];
-        if(Auth::attempt($credentials)){
+        $condition=[
+            ['email','=', $credentials['email']]
+        ];
+        $user=$this->userRepository->findByCondition($condition);
+        if ($user->user_catalogue_id == 10) {
+            return redirect()->route('auth.admin')->with('error', 'Tài khoản của bạn thuộc nhóm khách hàng, không thể truy cập vào trang admin.');
+        }
+        elseif(Auth::attempt($credentials)){
             return redirect()->route('dashboard.index')->with('success','Đăng nhập thành công');
         }
         else{

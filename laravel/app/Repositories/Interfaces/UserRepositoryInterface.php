@@ -21,6 +21,7 @@ interface UserRepositoryInterface
     public function create(array $payload =[]);
     public function createPivot($model, array $payload=[], string $relation='');
     public function findById(int $id, array $column=['*'], array $relation =[]);
+    public function findByCondition(array $condition = []);
     public function update(int $id=0, array $payload=[]);
     public function delete(int $id=0);
     public function forceDelete(int $id=0);
