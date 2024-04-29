@@ -24,7 +24,10 @@
                         </span>
                     </div>
                 </div>
-                <a href="{{ route('user.catalogue.store') }}" class="btn btn-danger ml10"><i class="fa fa-plus mr5"></i>Thêm mới nhóm thành viên</a>
+                <div class="uk-flex uk-flex-middle">
+                    <a href="{{ route('user.catalogue.permission') }}" class="btn btn-warning ml10"><i class="fa fa-key mr5"></i>Phân quyền</a>
+                    <a href="{{ route('user.catalogue.store') }}" class="btn btn-danger ml10"><i class="fa fa-plus mr5"></i>Thêm mới nhóm thành viên</a>
+                </div>
             </div>
         </div>
     </div>

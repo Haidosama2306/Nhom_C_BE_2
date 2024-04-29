@@ -29,6 +29,8 @@ class PermissionController extends Controller
 
         $permissions = $this->permissionService->paginate($request);
 
+        $this->authorize('modules', 'permission.index');
+
         return view('Backend.dashboard.layout', compact('template','config','permissions'));
     }
 
@@ -40,6 +42,8 @@ class PermissionController extends Controller
         $config['seo']=config('apps.permission.create');
 
         $config['method']='create';
+
+        $this->authorize('modules', 'permission.store');
 
         return view('Backend.dashboard.layout', compact('template','config'));
     }
@@ -61,6 +65,8 @@ class PermissionController extends Controller
         $config['method']='edit';
 
         $permission=$this->permissionRepository->findById($id);
+
+        $this->authorize('modules', 'permission.edit');
        
         return view('Backend.dashboard.layout', compact('template','config','permission'));
     }
@@ -79,6 +85,8 @@ class PermissionController extends Controller
         $config['seo']=config('apps.permission.delete');
 
         $permission=$this->permissionRepository->findById($id);
+
+        $this->authorize('modules', 'permission.destroy');
 
         return view('Backend.dashboard.layout', compact('template','config','permission'));
     }
