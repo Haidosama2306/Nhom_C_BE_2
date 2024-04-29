@@ -12,6 +12,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use App\Repositories\Interfaces\UserCatalogueRepositoryInterface as UserCatalogueRepository;
 use App\Repositories\Interfaces\UserInfoRepositoryInterface as UserInfoRepository;
+use Illuminate\Support\Facades\Auth;
 
 
 class UserController extends Controller
@@ -109,15 +110,25 @@ class UserController extends Controller
 
         $config['seo']=config('apps.user.delete');
 
-        $user=$this->userRepository->findById($id);
+        $condition=[
+            ['user_id', '=', $id]
+        ];
 
-        if ($user->user_catalogue_id == 1) {
-            return redirect()->route('user.index')->with('error', 'Thành viên này thuộc nhóm quản trị viên không thể xóa.');
+        $userInfo=$this->userInfoRepository->findByCondition($condition);
+
+        $id_logged = Auth::id();
+       
+        $user_logged=$this->userRepository->findById($id_logged);
+
+        if ($user_logged->user_catalogue_id != 1) {
+            return redirect()->route('user.index')->with('error', 'Thành viên '.$userInfo->name.' thuộc nhóm quản trị viên không thể xóa.');
         }
+
+        $user=$this->userRepository->findById($id);
 
         $this->authorize('modules', 'user.destroy');
 
-        return view('Backend.dashboard.layout', compact('template','config','user'));
+        return view('Backend.dashboard.layout', compact('template','config','userInfo','user'));
     }
     public function delete($id){
         if($this->userService->deleteUser($id)){
