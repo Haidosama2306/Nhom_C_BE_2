@@ -51,7 +51,7 @@
                                     <input 
                                     type="text"
                                     name="name"
-                                    value="{{ old('name', ($user->name)??'') }}"
+                                    value="{{ old('name', ($userInfo->name)??'') }}"
                                     class="form-control"
                                     placeholder=""
                                     autocomplete="off"
@@ -65,21 +65,16 @@
                                     <label for="" class="control-label text-left">Nhóm thành viên: <span class="text-danger">(*)</span></label>
                                     <select name="user_catalogue_id" id="" class="form-control setupSelect2">
                                         <option value="0">[Chọn nhóm thành viên]</option>
-                                        @php
-                                            if(isset($user)) {
-                                                $userCatalogueId = $user->user_catalogue_id; // Lấy giá trị user_catalogue_id từ biến $user
-                                                $userCatalogue = \App\Models\UserCatalogue::find($userCatalogueId); // Tìm kiếm thông tin của user_catalogue dựa trên id
-                                            }
-                                        @endphp
-
-                                        @if(isset($userCatalogues))
-                                            @foreach($userCatalogues as $catalogue)
-                                                <option value="{{ $catalogue->id }}" {{ old('user_catalogue_id', $user->user_catalogue_id ?? null) == $catalogue->id ? 'selected' : '' }}>
-                                                    {{ $catalogue->name }}
-                                                </option>
-                                            @endforeach
-                                        @endif
+                                        @foreach($userCatalogues as $userCatalogue)
+                                            <option 
+                                                {{ $userCatalogue->id == old('user_catalogue_id', (isset($user->user_catalogue_id)) ? $user->user_catalogue_id : '') ? 'selected' : '' }} 
+                                                value="{{ $userCatalogue->id }}"
+                                            >
+                                                {{ $userCatalogue->name }}
+                                            </option>
+                                        @endforeach
                                     </select>
+
 
                                 </div>
                             </div>
@@ -89,7 +84,7 @@
                                     <input 
                                     type="date"
                                     name="birthday"
-                                    value="{{ old('birthday', (isset($user->birthday))?date('Y-m-d', strtotime($user->birthday)):'') }}"
+                                    value="{{ old('birthday', (isset($userInfo->birthday))?date('Y-m-d', strtotime($userInfo->birthday)):'') }}"
                                     class="form-control"
                                     placeholder=""
                                     autocomplete="off"
@@ -134,11 +129,11 @@
                                     <input 
                                     type="text"
                                     name="image"
-                                    value="{{ old('image', ($user->image)??'') }}"
+                                    value="{{ old('image', ($userInfo->image)??'') }}"
                                     class="form-control upload-image"
                                     placeholder=""
                                     autocomplete="off"
-                                    data-upload="Images"
+                                    data-type="Images"
                                     >
                                 </div>
                             </div>
@@ -204,7 +199,7 @@
                                     <input 
                                     type="text"
                                     name="address"
-                                    value="{{ old('address', ($user->address)??'') }}"
+                                    value="{{ old('address', ($userInfo->address)??'') }}"
                                     class="form-control"
                                     placeholder=""
                                     autocomplete="off"
@@ -219,7 +214,7 @@
                                     <input 
                                     type="text"
                                     name="phone"
-                                    value="{{ old('phone', ($user->phone)??'') }}"
+                                    value="{{ old('phone', ($userInfo->phone)??'') }}"
                                     class="form-control"
                                     placeholder=""
                                     autocomplete="off"
@@ -232,7 +227,7 @@
                                     <input 
                                     type="text"
                                     name="description"
-                                    value="{{ old('description', ($user->description)??'') }}"
+                                    value="{{ old('description', ($userInfo->description)??'') }}"
                                     class="form-control"
                                     placeholder=""
                                     autocomplete="off"
@@ -252,7 +247,7 @@
 </form>
 <!-- XỬ LÝ HUYỆN XẢ KHI NHẬP SAI BỊ LOAD LẠI TRANG -->
 <script>
-    var province_id='{{ (isset($user->province_id)) ? $user->province_id : old('province_id') }}'
-    var district_id='{{ (isset($user->district_id)) ? $user->district_id : old('district_id') }}'
-    var ward_id='{{ (isset($user->ward_id)) ? $user->ward_id : old('ward_id') }}'
+    var province_id='{{ (isset($userInfo->province_id)) ? $userInfo->province_id : old('province_id') }}'
+    var district_id='{{ (isset($userInfo->district_id)) ? $userInfo->district_id : old('district_id') }}'
+    var ward_id='{{ (isset($userInfo->ward_id)) ? $userInfo->ward_id : old('ward_id') }}'
 </script>
