@@ -33,7 +33,8 @@ class UpdateUserRequest extends FormRequest
                 'gt:0',
     
                 function ($attribute, $value, $fail) {
-                    if (auth()->user()->user_catalogue_id == 1 && $value != 1) {
+                    $user_id = $this->route('id');
+                    if (auth()->user()->user_catalogue_id == 1 && $value != 1 && $user_id == auth()->user()->id) {
                         $fail('Bạn đang là Quản Trị Viên, nếu bạn muốn chuyển đổi chức vụ vui lòng liên hệ admin sđt: 0333444555.');
                     }
                 },
