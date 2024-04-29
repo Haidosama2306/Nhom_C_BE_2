@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
-
+use App\Models\UserCataloguePermission;
 
 /**
  * Class UserService
@@ -104,21 +104,34 @@ class UserCatalogueService implements UserCatalogueServiceInterface
             'id','name','description'
         ];
     }
-
-    public function setPermission($request){
+    public function setPermission($request)
+    {
         DB::beginTransaction();
-        try{
+        try {
+            $existingPermissions = UserCataloguePermission::pluck('user_catalogue_id')->toArray();
+            
             $permissions = $request->input('permission');
-            foreach($permissions as $key => $val){
+            $userCatalogueIds = array_keys($permissions);
+
+            $missingIds = array_diff($existingPermissions, $userCatalogueIds);
+
+            foreach ($missingIds as $missingId) {
+                $userCatalogue = $this->userCatalogueRepository->findById($missingId);
+                $userCatalogue->permissions()->detach();
+            }
+
+            foreach ($permissions as $key => $val) {
                 $userCatalogue = $this->userCatalogueRepository->findById($key);
                 $userCatalogue->permissions()->sync($val);
             }
+
             DB::commit();
             return true;
-        }catch(\Exception $ex){
+        } catch(\Exception $ex) {
             DB::rollBack();
             echo $ex->getMessage();//die();
             return false;
         }
     }
+
 }

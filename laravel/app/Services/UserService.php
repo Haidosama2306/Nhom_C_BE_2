@@ -68,10 +68,11 @@ class UserService implements UserServiceInterface
             if(isset($payload['password'])){
                 if($payload['password'] == null){
                     $payload['password'] = auth()->user()->password;
-                }
+                }                    
             }else{
                 $payload['password'] = auth()->user()->password;
             }
+            //dd($payload['password']);
             $flag=$this->userRepository->update($id, $payload);            
             if($flag==true){
                 $condition=[
