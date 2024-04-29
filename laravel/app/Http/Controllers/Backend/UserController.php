@@ -92,9 +92,25 @@ class UserController extends Controller
 
         $userInfo=$this->userInfoRepository->findByCondition($condition);
 
-        $this->authorize('modules', 'user.edit');
+        $id_logged = Auth::id();
+       
+        $user_logged=$this->userRepository->findById($id_logged);
 
+        if($user_logged->id == $userInfo->user_id){
+            $this->authorize('modules', 'user.edit');
+            return view('Backend.dashboard.layout', compact('template','config','provinces','user', 'userCatalogues','userInfo'));
+        }
+
+        if($user_logged->user_catalogue_id == $userInfo->user_catalogue_id){
+            return redirect()->route('user.index')->with('error', 'Thành viên '.$userInfo->name.' có cùng cập bậc với bạn nên không thể sửa.');
+        }
+
+        if ($userInfo->user_catalogue_id == 1) {
+            return redirect()->route('user.index')->with('error', 'Thành viên '.$userInfo->name.' thuộc nhóm quản trị viên không thể sửa.');
+        }
+        $this->authorize('modules', 'user.edit');
         return view('Backend.dashboard.layout', compact('template','config','provinces','user', 'userCatalogues','userInfo'));
+
     }
     public function update($id, UpdateUserRequest $request){
        
@@ -121,7 +137,11 @@ class UserController extends Controller
         $user_logged=$this->userRepository->findById($id_logged);
 
         if($user_logged->user_catalogue_id == $userInfo->user_catalogue_id && $userInfo->user_catalogue_id == 1){
-            return redirect()->route('user.index')->with('error', 'Bạn đang là quản trị viên nếu ban muốn thôi chức vụ vui long liên hệ với admin để giải quyết vấn đề quan trọng này sđt: 0333444555.');
+            return redirect()->route('user.index')->with('error', 'Bạn đang là Quản Trị Viên nếu ban muốn thôi chức vụ vui lòng liên hệ với admin để giải quyết vấn đề quan trọng này sđt: 0333444555.');
+        }
+
+        if($user_logged->id == $userInfo->user_id){
+            return redirect()->route('user.index')->with('error', 'Bạn đang là Đồng Quản Trị viên nếu muốn thôi chức vụ vui lòng liên hệ Quản Trị Viên để giải quyết vấn đề này');
         }
 
         if($user_logged->user_catalogue_id == $userInfo->user_catalogue_id){
