@@ -27,7 +27,7 @@ use App\Http\Controllers\Ajax\PostCatalogueController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('client.index');
 });
 
 Route::get('admin',[AuthController::class, 'index'])->name('auth.admin')->middleware(LoginMiddleware::class);
