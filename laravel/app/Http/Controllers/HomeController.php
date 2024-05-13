@@ -14,7 +14,9 @@ class HomeController extends Controller
         $data['post_catalogues_parent']=PostCatalogueParent::all();
         $data['post_catalogues_children']=PostCatalogueChildren::all();
         $data['posts']=Post::all();
-        // $data['latest_posts']=Post::published()->orderBy('id', 'desc')->paginate(6);
+
+
+
         return view('client.index', $data);
     }
 }
