@@ -2,22 +2,16 @@
 @section('title','- Trang Chủ')
 @section('content')
 
-<div class="container">
-    <div class="row">
-        <div class="col-8">
-            <section>
-                @include('client.latestnews');
-            </section>
-            <section>
-                @include('client.countrysnews');
-            </section>
-        </div>
+<div class="row">
+    <div class="col-8">
+        @include('client.countrysnews');
 
-        <div class="col-4">
-            <section>
+        @include('client.internationalnews');
 
-            </section>
-        </div>
+    </div>
+
+    <div class="col-4">
+        @include('client.latestnews');
     </div>
 </div>
 @endsection

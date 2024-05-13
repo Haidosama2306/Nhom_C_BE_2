@@ -31,10 +31,17 @@ p {
     color: #000;
     text-decoration: none;
 }
+.border-bottom {
+    width: 100%;
+    height: 2px;
+    opacity: .3;
+    margin: 10px 0;
+    background-color: #000;
+}
 /* latest news */
 .lastest-new {
     width: 90%;
-    height: 200px;
+    height: 90%;
     margin: 10px;
     padding: 10px;
     text-align: center;
@@ -42,32 +49,40 @@ p {
 .lastest-new .title {
     text-align: left;
 }
-.lastest-new img {
+.lastest-new p {
+    text-overflow: ellipsis;
+}
+
+/* countrys-new */
+.countrys-new {
+    width: 90%;
+    height: 90%;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+}
+.countrys-new .title {
+    text-align: left;
+}
+.countrys-new img {
     width: 100%;
     height: 150px;
     border: 1px solid black;
 }
-.lastest-new p {
+.countrys-new p {
     text-overflow: ellipsis;
 }
-.border-bottom {
+
+/* international-news */
+.international-news {
+    width: 90%;
+    height: 200px;
+    padding: 10px;
+    margin: 10px;
+}
+.international-news img {
     width: 100%;
-    height: 2px;
-    opacity: .3;
-    margin-top: 40px;
-    background-color: #000;
+    height: 150px;
+    border: 1px solid black;
 }
 
-/* section 2 */
-.news_3 .img {
-    width: 100%;
-    height: 100px;
-    background-color: aquamarine;
-    border: 1px solid black;
-}
-.news_4 .img {
-    width: 100%;
-    height: 200px;
-    background-color: aquamarine;
-    border: 1px solid black;
-}
