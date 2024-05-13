@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
@@ -26,9 +27,11 @@ use App\Http\Controllers\Ajax\PostCatalogueController;
 |
 */
 
-Route::get('/', function () {
-    return view('client.index');
-});
+// Route::get('/', function () {
+//     return view('client.index');
+// });
+
+Route::get('/', [HomeController::class,'index'])->name('home');
 
 Route::get('admin',[AuthController::class, 'index'])->name('auth.admin')->middleware(LoginMiddleware::class);
 Route::post('login',[AuthController::class, 'login'])->name('auth.login');

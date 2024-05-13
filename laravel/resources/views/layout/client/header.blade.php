@@ -1,7 +1,7 @@
 <div class="container">
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#">Báo Mới</a>
+            <a class="navbar-brand" href="{{ route('home') }}">Báo Mới</a>
 
             <div class="navbar-header headerTop">
                 <div class="row ">
