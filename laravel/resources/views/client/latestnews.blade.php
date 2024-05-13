@@ -1,19 +1,19 @@
 <div class="container">
-    @if (isset($countrysnews) && is_object($countrysnews))
-    @foreach ($countrysnews as $post )
+    @if (isset($latest_post) && is_object($latest_post))
+    @foreach ($latest_post as $post )
     <div class="lastest-new">
+        <a class="title" href="#">
+            @if(strlen($post->name) > 60 )
+            <h4>{{ substr($post->name,0,60) }}...</h4>
+            @else
+            <h4>{{ $post->name }}</h4>
+            @endif
+        </a>
         <div class="row">
             <div class="col-6">
                 <img src="{{ $post->image }}" alt="img">
             </div>
             <div class="col-6">
-            <a class="title" href="#">
-            @if(strlen($post->name) > 50 )
-            <h5>{{ substr($post->name,0,50) }}...</h5>
-            @else
-            <h5>{{ $post->name }}</h5>
-            @endif
-        </a>
                 <p>{{ substr($post->description,0,150)  }}</p>
             </div>
         </div>
