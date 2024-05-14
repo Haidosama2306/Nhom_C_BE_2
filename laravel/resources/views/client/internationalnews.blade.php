@@ -20,7 +20,7 @@
                 <img src="{{ $post->image }}" alt="img">
             </div>
             <div class="col-6">
-                <p>{{ substr($post->description,0,150)  }}</p>
+                <p>{{ substr($post->description,0,200)  }}</p>
             </div>
         </div>
     </div>
