@@ -4,8 +4,8 @@
         <h3>Tin mới nhất</h3>
     </a>
     <div class="border-bottom"></div>
-    @if (isset($latest_post) && is_object($latest_post))
-    @foreach ($latest_post as $post )
+    @if (isset($latestpost) && is_object($latestpost))
+    @foreach ($latestpost as $post )
     <div class="lastest-new">
         <a class="title" href="#">
             @if(strlen($post->name) > 40 )
