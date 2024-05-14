@@ -37,6 +37,18 @@ Route::get('admin',[AuthController::class, 'index'])->name('auth.admin')->middle
 Route::post('login',[AuthController::class, 'login'])->name('auth.login');
 Route::get('logout',[AuthController::class, 'logout'])->name('auth.logout');
 
+Route::group(['prefix' => 'customer'], function () {
+    Route::post('login', [HomeController::class, 'authUser'])->name('user.authUser');
+    Route::post('create', [HomeController::class, 'postUser'])->name('user.postUser');
+
+    Route::post('forgot-password', [HomeController::class, 'forgotPassword'])->name('user.forgotPassword');
+
+    Route::get('get-password/{user}/{token}', [HomeController::class, 'getPassword'])->name('user.getPassword');
+    Route::post('get-password/{user}/{token}', [HomeController::class, 'postGetPassword'])->name('user.postGetPassword');
+
+    Route::get('signout', [HomeController::class, 'signOut'])->name('signout');
+});
+
 Route::get('dashboard/index',[DashboardController::class, 'index'])->name('dashboard.index')->middleware(AuthenticateMiddleware::class);
 Route::group(['prefix'=>'user/catalogue'], function(){
     Route::get('index',[UserCatalogueController::class, 'index'])->name('user.catalogue.index')->middleware(AuthenticateMiddleware::class);
