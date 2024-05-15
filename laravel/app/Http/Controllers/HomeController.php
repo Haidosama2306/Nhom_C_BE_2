@@ -20,8 +20,8 @@ class HomeController extends Controller
         $data['post_catalogues_parent']=PostCatalogueParent::all();
         $data['post_catalogues_children']=PostCatalogueChildren::all();
         $data['latestpost']=Post::orderBy('created_at','desc')->limit(8)->get();
-        $data['countrysnews']=Post::where('post_catalogue_parent_id',3)->limit(4)->get();
-        $data['internationalnews']=Post::where('post_catalogue_parent_id',5)->limit(4)->get();
+        $data['countrysnews']=Post::where('post_catalogue_parent_id',5)->limit(4)->get();
+        $data['internationalnews']=Post::where('post_catalogue_parent_id',3)->limit(4)->get();
 
         return view('client.index', $data);
     }
@@ -75,6 +75,41 @@ class HomeController extends Controller
         } catch (ValidationException $e) {
             return redirect()->route('home')->withError('Tạo tài khoản không thành công');
         }
+    }
+
+
+    public function postGetPassword(Request $request) {
+        $request->validate([
+            'email' => 'required|exist:users'
+        ]);
+
+
+    }
+
+    public function category($id) {
+        $data['post_catalogues_parent']=PostCatalogueParent::all();
+        $data['post_catalogues_children']=PostCatalogueChildren::all();
+        $data['latestpost']=Post::orderBy('created_at','asc')->limit(8)->get();
+
+        // $data['cataparent']=PostCatalogueParent::where('id',$id)->firstOrFail()->name;
+        $data['catachildren']=PostCatalogueChildren::where('id',$id)->firstOrFail()->name;
+        // $data['posts']=Post::where('post_catalogue_parent_id',$id)->orderBy('created_at','desc')->paginate(5);
+        $data['posts']=Post::where('post_catalogue_children_id',$id)->orderBy('created_at','desc')->paginate(4);
+
+        $data['latestnews']=Post::orderBy('created_at','desc')->paginate(4);
+
+        return view('client.category',$data);
+    }
+
+
+    public function latestnews() {
+        $data['post_catalogues_parent']=PostCatalogueParent::all();
+        $data['post_catalogues_children']=PostCatalogueChildren::all();
+        $data['latestpost']=Post::orderBy('created_at','asc')->limit(6)->get();
+
+        $data['latestnews']=Post::orderBy('created_at','desc')->paginate(4);
+
+        return view('client.category',$data);
     }
 
     public function signOut() {

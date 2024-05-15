@@ -20,7 +20,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Tin Mới</a>
+                                <a class="nav-link " href="{{ route('latestnews') }}" tabindex="-1" aria-disabled="true">Tin Mới</a>
                             </li>
                             <li class="nav-item dropdown dmenu">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">

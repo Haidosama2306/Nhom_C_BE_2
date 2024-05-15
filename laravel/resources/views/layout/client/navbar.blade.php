@@ -12,24 +12,20 @@
                         <a class="nav-link" href="{{ route('home') }}">Trang Chủ <span
                                 class="sr-only">(current)</span></a>
                     </li>
-                    @if(isset($post_catalogues_parent) && is_object($post_catalogues_parent))
                     @foreach ($post_catalogues_parent as $parent)
                     <li class="nav-item dropdown dmenu">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                            {{ $parent->name }}
+                        <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown"> {{ $parent->name }}
                         </a>
                         <div class="dropdown-menu sm-menu">
-                            @if (isset($post_catalogues_children) && is_object($post_catalogues_children))
                             @foreach ($post_catalogues_children as $children )
                             @if ($children->post_catalogue_parent_id == $parent->id)
-                            <a class="dropdown-item" href="#">{{ $children->name }}</a>
+                            <a class="dropdown-item"
+                                href="{{ route('category_children',$children->id) }}">{{ $children->name }}</a>
                             @endif
                             @endforeach
-                            @endif
                         </div>
                     </li>
                     @endforeach
-                    @endif
                 </ul>
             </div>
         </nav>

@@ -1,8 +1,6 @@
 <div class="container">
     <div class="border-bottom"></div>
-    <a class="#" href="#">
         <h3>Tin quốc tế</h3>
-    </a>
     <div class="border-bottom"></div>
 
     @if (isset($internationalnews) && is_object($internationalnews))

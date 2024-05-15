@@ -1,9 +1,6 @@
 <div class="container">
     <div class="border-bottom"></div>
-    <a href="">
         <h3>Tin trong nước</h3>
-    </a>
-
     <div class="border-bottom"></div>
     @if (isset($countrysnews) && is_object($countrysnews))
     @foreach ($countrysnews as $post )

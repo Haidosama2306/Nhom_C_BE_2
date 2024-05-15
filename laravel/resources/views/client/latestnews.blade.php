@@ -1,8 +1,6 @@
 <div class="container">
     <div class="border-bottom"></div>
-    <a href="">
         <h3>Tin mới nhất</h3>
-    </a>
     <div class="border-bottom"></div>
     @if (isset($latestpost) && is_object($latestpost))
     @foreach ($latestpost as $post )
