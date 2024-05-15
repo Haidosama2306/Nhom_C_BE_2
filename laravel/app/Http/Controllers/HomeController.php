@@ -88,20 +88,17 @@ class HomeController extends Controller
     }
 
     public function search(Request $request) {
-        $request->validate([
-            'keyword' => 'required',
-        ]);
-
-        $keyword = $request->only('keyword');
-
+       if(isset($request->keyword) && $request->keyword != ''){
         $data['post_catalogues_parent']=PostCatalogueParent::all();
         $data['post_catalogues_children']=PostCatalogueChildren::all();
 
-        $data['result'] = Post::where('name', 'like', $keyword)->get();
+        $data['result'] = Post::where('name', 'like', '%'.$request->keyword.'%')->get();
 
         $data['latestpost']=Post::orderBy('created_at','asc')->limit(6)->get();
 
         return view('client.result', $data);
+       }
+       return redirect()->route('home');
     }
 
     public function category($id) {
