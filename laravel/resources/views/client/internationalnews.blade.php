@@ -1,6 +1,6 @@
 <div class="container">
     <div class="border-bottom"></div>
-        <h3>Tin quốc tế</h3>
+        <h3 style="font-weight: bold;">Tin quốc tế</h3>
     <div class="border-bottom"></div>
 
     @if (isset($internationalnews) && is_object($internationalnews))
@@ -24,4 +24,6 @@
     </div>
     @endforeach
     @endif
+    <div class="border-bottom"></div>
 </div>
+

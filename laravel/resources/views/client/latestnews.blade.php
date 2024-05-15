@@ -1,6 +1,6 @@
 <div class="container">
     <div class="border-bottom"></div>
-        <h3>Tin mới nhất</h3>
+        <h3 style="font-weight: bold;">Tin mới nhất</h3>
     <div class="border-bottom"></div>
     @if (isset($latestpost) && is_object($latestpost))
     @foreach ($latestpost as $post )
@@ -14,7 +14,7 @@
         </a>
         <p>{{ substr($post->description, 0, 150) }}</p>
     </div>
-    <div class="border-bottom"></div>
     @endforeach
     @endif
+    <div class="border-bottom"></div>
 </div>

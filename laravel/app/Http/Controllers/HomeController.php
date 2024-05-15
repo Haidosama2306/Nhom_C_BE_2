@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 
+
 class HomeController extends Controller
 {
     public function index(){
@@ -84,6 +85,23 @@ class HomeController extends Controller
         ]);
 
 
+    }
+
+    public function search(Request $request) {
+        $request->validate([
+            'keyword' => 'required',
+        ]);
+
+        $keyword = $request->only('keyword');
+
+        $data['post_catalogues_parent']=PostCatalogueParent::all();
+        $data['post_catalogues_children']=PostCatalogueChildren::all();
+
+        // $data['result'] = Post::where('name', 'like', '%'.$keyword.'%')->orderBy('created_at','desc')->paginate(4);
+        // $search = Search::search('posts');
+        $data['latestnews']=Post::orderBy('created_at','desc')->paginate(4);
+
+        return view('client.result', $data);
     }
 
     public function category($id) {

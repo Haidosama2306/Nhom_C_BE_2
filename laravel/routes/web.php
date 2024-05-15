@@ -46,6 +46,8 @@ Route::post('forgot-password', [HomeController::class, 'forgotPassword'])->name(
 Route::get('get-password/{user}/{token}', [HomeController::class, 'getPassword'])->name('user.getPassword');
 Route::post('get-password/{user}/{token}', [HomeController::class, 'postGetPassword'])->name('user.postGetPassword');
 
+Route::post('result', [HomeController::class, 'search'])->name('post.result');
+
 Route::get('signout', [HomeController::class, 'signOut'])->name('signout');
 
 Route::get('category_parent/{id}', [HomeController::class, 'category'])->name('category_parent');

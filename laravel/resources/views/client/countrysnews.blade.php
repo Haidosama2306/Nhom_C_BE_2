@@ -1,6 +1,6 @@
 <div class="container">
-    <div class="border-bottom"></div>
-        <h3>Tin trong nước</h3>
+    <div class="border-bottom" ></div>
+        <h3 style="font-weight: bold;">Tin trong nước</h3>
     <div class="border-bottom"></div>
     @if (isset($countrysnews) && is_object($countrysnews))
     @foreach ($countrysnews as $post )
