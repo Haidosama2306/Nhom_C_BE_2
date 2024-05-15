@@ -4,14 +4,13 @@
 
 <div class="row">
     <div class="col-8">
-        @include('client.countrysnews');
+        @include('client.countrysnews')
 
-        @include('client.internationalnews');
-
+        @include('client.internationalnews')
     </div>
 
     <div class="col-4">
-        @include('client.latestnews');
+        @include('client.latestnews')
     </div>
 </div>
 @endsection

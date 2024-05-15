@@ -37,6 +37,24 @@ Route::get('admin',[AuthController::class, 'index'])->name('auth.admin')->middle
 Route::post('login',[AuthController::class, 'login'])->name('auth.login');
 Route::get('logout',[AuthController::class, 'logout'])->name('auth.logout');
 
+
+Route::post('login', [HomeController::class, 'authUser'])->name('user.authUser');
+Route::post('create', [HomeController::class, 'postUser'])->name('user.postUser');
+
+Route::post('forgot-password', [HomeController::class, 'forgotPassword'])->name('user.forgotPassword');
+
+Route::get('get-password/{user}/{token}', [HomeController::class, 'getPassword'])->name('user.getPassword');
+Route::post('get-password/{user}/{token}', [HomeController::class, 'postGetPassword'])->name('user.postGetPassword');
+
+Route::post('result', [HomeController::class, 'search'])->name('post.result');
+
+Route::get('signout', [HomeController::class, 'signOut'])->name('signout');
+
+Route::get('category_parent/{id}', [HomeController::class, 'category'])->name('category_parent');
+Route::get('category_children/{id}', [HomeController::class, 'category'])->name('category_children');
+Route::get('latestnews', [HomeController::class, 'latestnews'])->name('latestnews');
+
+
 Route::get('dashboard/index',[DashboardController::class, 'index'])->name('dashboard.index')->middleware(AuthenticateMiddleware::class);
 Route::group(['prefix'=>'user/catalogue'], function(){
     Route::get('index',[UserCatalogueController::class, 'index'])->name('user.catalogue.index')->middleware(AuthenticateMiddleware::class);
