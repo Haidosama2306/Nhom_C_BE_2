@@ -97,9 +97,9 @@ class HomeController extends Controller
         $data['post_catalogues_parent']=PostCatalogueParent::all();
         $data['post_catalogues_children']=PostCatalogueChildren::all();
 
-        // $data['result'] = Post::where('name', 'like', '%'.$keyword.'%')->orderBy('created_at','desc')->paginate(4);
-        // $search = Search::search('posts');
-        $data['latestnews']=Post::orderBy('created_at','desc')->paginate(4);
+        $data['result'] = Post::where('name', 'like', $keyword)->get();
+
+        $data['latestpost']=Post::orderBy('created_at','asc')->limit(6)->get();
 
         return view('client.result', $data);
     }
