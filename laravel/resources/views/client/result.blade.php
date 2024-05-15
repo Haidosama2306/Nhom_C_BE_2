@@ -29,8 +29,8 @@
             <div class="border-bottom"></div>
             <h3 style="font-weight: bold;">Tin mới nhất</h3>
             <div class="border-bottom"></div>
-            @if (isset($latestpost) && is_object($latestpost))
-            @foreach ($latestpost as $post )
+            @if (isset($searchpost) && is_object($searchpost))
+            @foreach ($searchpost as $post )
             <div class="lastest-new">
                 <a class="title" href="#">
                     @if(strlen($post->name) > 40 )

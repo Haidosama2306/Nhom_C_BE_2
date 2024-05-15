@@ -93,8 +93,14 @@ class HomeController extends Controller
         $data['post_catalogues_children']=PostCatalogueChildren::all();
 
         $data['result'] = Post::where('name', 'like', '%'.$request->keyword.'%')->get();
+        $coutn = count($data['result'] = Post::where('name', 'like', '%'.$request->keyword.'%')->get());
 
-        $data['latestpost']=Post::orderBy('created_at','asc')->limit(6)->get();
+        if($coutn == 0){
+            $data['searchpost']=Post::orderBy('created_at','asc')->limit(4)->get();
+        }else{
+            $parentID = Post::where('name', 'like', '%'.$request->keyword.'%')->firstOrFail()->post_catalogue_parent_id;
+            $data['searchpost'] = Post::where('post_catalogue_parent_id', $parentID)->orderBy('created_at','asc')->limit(6)->get();
+        }
 
         return view('client.result', $data);
        }
@@ -104,14 +110,10 @@ class HomeController extends Controller
     public function category($id) {
         $data['post_catalogues_parent']=PostCatalogueParent::all();
         $data['post_catalogues_children']=PostCatalogueChildren::all();
-        $data['latestpost']=Post::orderBy('created_at','asc')->limit(8)->get();
+        $data['latestpost']=Post::orderBy('created_at','asc')->limit(4)->get();
 
-        // $data['cataparent']=PostCatalogueParent::where('id',$id)->firstOrFail()->name;
         $data['catachildren']=PostCatalogueChildren::where('id',$id)->firstOrFail()->name;
-        // $data['posts']=Post::where('post_catalogue_parent_id',$id)->orderBy('created_at','desc')->paginate(5);
         $data['posts']=Post::where('post_catalogue_children_id',$id)->orderBy('created_at','desc')->paginate(4);
-
-        $data['latestnews']=Post::orderBy('created_at','desc')->paginate(4);
 
         return view('client.category',$data);
     }
