@@ -2,7 +2,7 @@
 @section('title','- Tìm kiếm')
 @section('content')
 <div class="border-bottom"></div>
-<h3>Có {{ count($result) }} trùng khớp</h3>
+<h3>Có {{ count($count) }} trùng khớp</h3>
 <div class="border-bottom"></div>
 <div class="row">
     <div class="col-8">
@@ -29,8 +29,8 @@
             <div class="border-bottom"></div>
             <h3 style="font-weight: bold;">Tin mới nhất</h3>
             <div class="border-bottom"></div>
-            @if (isset($latestpost) && is_object($latestpost))
-            @foreach ($latestpost as $post )
+            @if (isset($searchpost) && is_object($searchpost))
+            @foreach ($searchpost as $post )
             <div class="lastest-new">
                 <a class="title" href="#">
                     @if(strlen($post->name) > 40 )
@@ -50,7 +50,9 @@
         <div class="col-md-12 text-center">
             <nav aria-label="Page navigation" class="text-center">
                 <ul class="pagination">
+                    @if (isset($result) && count($result) > 0)
 
+                    @endif
                 </ul>
             </nav>
         </div>

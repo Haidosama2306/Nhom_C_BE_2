@@ -20,10 +20,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="{{ route('latestnews') }}" tabindex="-1" aria-disabled="true" style="color:black">Tin Mới</a>
+                                <a class="nav-link " href="{{ route('latestnews') }}" tabindex="-1" aria-disabled="true"
+                                    style="color:black">Tin Mới</a>
                             </li>
                             <li class="nav-item dropdown dmenu">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" style="color:black">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown"
+                                    style="color:black">
                                     Tin Theo Khu Vực
                                 </a>
                                 <div class="dropdown-menu sm-menu">
@@ -36,18 +38,22 @@
                     </div>
                     <div class="col-4 search-form">
                         <form class="navbar-form" role="search" action="{{ route('post.result') }}" method="post">
-                        @csrf
+                            @csrf
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Nhập từ khóa ..." name="keyword" style="background-color: rgb(172, 170, 154); border-color: black;">
+                                <input type="text" class="form-control" placeholder="Nhập từ khóa ..." name="keyword"
+                                    style="background-color: rgb(172, 170, 154); border-color: black;">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-default btn-primary" type="submit" style="background: rgb(172, 170, 154)  !important; border-color: black; color: black">Tìm kiếm</button>
+                                    <button class="btn btn-default btn-primary" type="submit"
+                                        style="background: rgb(172, 170, 154)  !important; border-color: black; color: black">Tìm
+                                        kiếm</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="col-2">
                         @guest
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal" style="background: rgb(172, 170, 154)  !important; border-color: black; color: black">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal"
+                            style="background: rgb(172, 170, 154)  !important; border-color: black; color: black">
                             Đăng nhập
                         </button>
 
@@ -56,7 +62,11 @@
                         @include('layout.auth.forgotpassword')
 
                         @else
-                        <a href="{{ route('signout') }}">Đăng xuất</a>
+
+                        <a class="btn" href="{{ route('signout') }}"
+                            style="background: rgb(172, 170, 154)  !important; border-color: black; color: black">
+                            Đăng xuất
+                        </a>
                         @endguest
                     </div>
                 </div>
