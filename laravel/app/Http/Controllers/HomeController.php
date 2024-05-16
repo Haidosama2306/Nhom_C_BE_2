@@ -44,14 +44,14 @@ class HomeController extends Controller
             return redirect()->route('home')->withError('Đăng nhập thất bại');
     }
 
-    public function postUser(Request $request)
+    public function createUser(Request $request)
     {
         try {
             $request->validate([
                 'name' => 'required',
                 'email' => 'required|email|unique:users',
-                'password' => 'required|min:6|confirmed',
-                'password_confirmation' => 'required|min:6',
+                'password' => 'required|min:6|same:confirmPassword',
+                'confirmPassword' => 'required|min:6',
             ]);
 
             $data = $request->all();
@@ -59,32 +59,39 @@ class HomeController extends Controller
             $userid = $id + 1;
             $user_catalogue_id = 10;
 
-            $user = User::create([
-                'id' => $userid,
-                'user_catalogue_id ' => $user_catalogue_id,
-                'email' => $data['email'],
-                'password' => Hash::make($data['password'])
-            ]);
 
-            $userinfo = UserInfo::create([
-                'user_id' => $userid,
-                'user_catalogue_id ' => $user_catalogue_id,
-                'name' => $data['name'],
-            ]);
+            $user['id'] = $userid;
+            $user['user_catalogue_id'] = $user_catalogue_id;
+            $user['email'] = $data['email'];
+            $user['password'] = Hash::make($data['password']);
+
+            $userinfo['user_id'] = $userid;
+            $userinfo['user_catalogue_id'] = $user_catalogue_id;
+            $userinfo['name'] = $data['name'];
+
+
+            User::create($user);
+            UserInfo::create($userinfo);
+
 
             return redirect()->route('home')->withSuccess('Tạo tài khoản thành công');
         } catch (ValidationException $e) {
-            return redirect()->route('home')->withError('Tạo tài khoản không thành công');
+            return redirect()->back()->withError('Tạo tài khoản không thành công');
         }
     }
 
 
-    public function postGetPassword(Request $request) {
-        $request->validate([
-            'email' => 'required|exist:users'
-        ]);
+    public function forgotPassword(Request $request) {
+        try {
+            $request->validate([
+                'email' => 'required|email|exists:users,email'
+            ]);
 
 
+            return redirect()->route('home')->withSuccess('Đã gửi mã xác thực về email của bạn');
+        } catch (ValidationException $th) {
+            return redirect()->back()->withError('Email xác thực không nằm trong hệ thống');
+        }
     }
 
     public function search(Request $request) {
@@ -92,10 +99,11 @@ class HomeController extends Controller
         $data['post_catalogues_parent']=PostCatalogueParent::all();
         $data['post_catalogues_children']=PostCatalogueChildren::all();
 
-        $data['result'] = Post::where('name', 'like', '%'.$request->keyword.'%')->get();
-        $coutn = count($data['result'] = Post::where('name', 'like', '%'.$request->keyword.'%')->get());
+        $data['result'] = Post::where('name', 'like', '%'.$request->keyword.'%')->orderBy('created_at','desc')->paginate(4);
+        $data['count'] = Post::where('name', 'like', '%'.$request->keyword.'%')->get();
+        $count = count($data['result'] = Post::where('name', 'like', '%'.$request->keyword.'%')->get());
 
-        if($coutn == 0){
+        if($count == 0){
             $data['searchpost']=Post::orderBy('created_at','asc')->limit(4)->get();
         }else{
             $parentID = Post::where('name', 'like', '%'.$request->keyword.'%')->firstOrFail()->post_catalogue_parent_id;

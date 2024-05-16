@@ -10,13 +10,13 @@
 
             <div class="modal-body ">
                 <h2 class="text-center">Đăng ký</h2>
-                <form id="registerForm" method="post" action="{{ route('user.postUser') }}">
+                <form id="registerForm" method="post" action="{{ route('user.createUser') }}">
                     @csrf
                     <div class="form-group mb-3">
                         <input type="text" placeholder="Tên người dùng" class="form-control" name="name" required>
                     </div>
                     <div class="form-group mb-3">
-                        <input type="email" placeholder="Email" class="form-control" name="email" required>
+                        <input type="text" placeholder="Email" class="form-control" name="email" required>
                     </div>
                     <div class="form-group mb-3">
                         <input type="password" placeholder="Mật khẩu" class="form-control" name="password" required>

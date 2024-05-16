@@ -38,8 +38,8 @@ Route::post('login',[AuthController::class, 'login'])->name('auth.login');
 Route::get('logout',[AuthController::class, 'logout'])->name('auth.logout');
 
 
-Route::post('login', [HomeController::class, 'authUser'])->name('user.authUser');
-Route::post('create', [HomeController::class, 'postUser'])->name('user.postUser');
+Route::post('loginUser', [HomeController::class, 'authUser'])->name('user.authUser');
+Route::post('createUser', [HomeController::class, 'createUser'])->name('user.createUser');
 
 Route::post('forgot-password', [HomeController::class, 'forgotPassword'])->name('user.forgotPassword');
 

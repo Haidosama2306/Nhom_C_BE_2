@@ -16,7 +16,7 @@
             @include($template)
             @include('Backend.dashboard.component.footer')
         </div>
-        
+
     </div>
 
     @include('Backend.dashboard.component.script')
