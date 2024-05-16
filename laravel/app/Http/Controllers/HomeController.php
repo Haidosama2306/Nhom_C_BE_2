@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Mail\VerifyAccount;
 use App\Models\PostCatalogueParent;
 use App\Models\PostCatalogueChildren;
 use App\Models\Post;
@@ -11,8 +11,10 @@ use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
+use Str;
 
 
 class HomeController extends Controller
@@ -87,11 +89,45 @@ class HomeController extends Controller
                 'email' => 'required|email|exists:users,email'
             ]);
 
+            $token = strtoupper(Str::random(10));
+            $user = User::where('email', $request->email)->first();
+            $user->update(['token' => $token]);
+
+
+            Mail::send('layout.email.resetpassword', compact('user'), function ($email) use($user)  {
+                $email->subject('Báo mới - lấy lại mật khẩu tài khoản');
+                $email->to($user->email,$user->name);
+            });
 
             return redirect()->route('home')->withSuccess('Đã gửi mã xác thực về email của bạn');
         } catch (ValidationException $th) {
             return redirect()->back()->withError('Email xác thực không nằm trong hệ thống');
         }
+    }
+
+    public function getPassword (User $user, $token) {
+        if ($user->token === $token) {
+            $data['post_catalogues_parent']=PostCatalogueParent::all();
+            $data['post_catalogues_children']=PostCatalogueChildren::all();
+
+            return view('layout.auth.resetpassword',$data);
+        }
+        return abort(404);
+    }
+
+    public function postGetPassword(Request $request, User $user, $token) {
+
+        $request->validate([
+            'password' => 'required|min:6|same:confirmPassword',
+            'confirmPassword' => 'required|min:6',
+        ]);
+
+        $password = Hash::make($request['password']);
+
+        $user->update(['password' => $password, 'token' => null]);
+
+
+        return Redirect()->route('home')->withSuccess('Đổi mật khẩu thành công');
     }
 
     public function search(Request $request) {

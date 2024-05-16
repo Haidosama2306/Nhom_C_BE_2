@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('password');
             $table->bigInteger('user_catalogue_id')->unsigned();
             $table->foreign('user_catalogue_id')->references('id')->on('user_catalogues')->onDelete('cascade');
+            $table->string('token')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });

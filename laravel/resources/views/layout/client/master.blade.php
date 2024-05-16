@@ -20,10 +20,6 @@
             @yield('content')
         </div>
 
-        <footer>
-            @include('layout.client.footer')
-        </footer>
-
         <!-- javascript -->
         @include('layout.client._script')
 </body>

@@ -20,7 +20,8 @@ class User extends Authenticatable
         'id',
         'email',
         'password',
-        'user_catalogue_id'
+        'user_catalogue_id',
+        'token'
     ];
 
     /**
