@@ -27,7 +27,7 @@
     <div class="col-4">
         <div class="container">
             <div class="border-bottom"></div>
-            <h3 style="font-weight: bold;">Tin mới nhất</h3>
+            <h3 style="font-weight: bold;">Tin tức liên quan</h3>
             <div class="border-bottom"></div>
             @if (isset($searchpost) && is_object($searchpost))
             @foreach ($searchpost as $post )
